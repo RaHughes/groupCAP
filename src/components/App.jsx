@@ -13,24 +13,28 @@ class App extends Component{
         }
     }
 
-    // componentDidMount(){
-    //     const jwt = localStorage.getItem('token');
-    //     try {
-    //         const user = jwtDecode(jwt);
-    //         this.setState({
-    //             user
-    //         })
-    //     } catch {
-    //         console.log('Something went wrong')
-    //     }
-    // }
+    componentDidMount(){
+        localStorage.setItem('token', this.state.token);
+        try {
+            const user = jwtDecode(this.state.token);
+            this.setState({
+                user
+            })
+        } catch {
+            console.log('Something went wrong')
+        }
+    }
+
+    setToken = (token) => {
+        this.setState({token: token});
+    }
 
     render(){
         return <div className="App">
-            <NavBar />
+            <NavBar user={this.state.user} />
             <Routes>
                 <Route path="/" exact element={<VideoGameList />} />
-                <Route path="/Login" element={<LogInForm />} />
+                <Route path="/Login" element={<LogInForm setToken={this.setToken} />} />
                 <Route path="/Sell" element={<VideoGameForm />} /> 
                 
             </Routes>

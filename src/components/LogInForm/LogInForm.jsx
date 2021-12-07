@@ -17,9 +17,17 @@ class LogInForm extends Component {
     }
 
     onSubmit = (event) => {
-        event.preventDefault()
-        let response = axios.post("https://localhost:44394/api/authentication/login", { "username": this.state.username, "password": this.state.password })
-        console.log(response)
+        event.preventDefault();
+        axios({
+            method: 'post',
+            url: "https://localhost:44394/api/authentication/login",
+            headers: {}, 
+            data: {
+              "username": this.state.username,
+              "password": this.state.password
+            }
+          }).then(response => this.props.setToken(response.data.token));
+          
     }
 
     render() { 
