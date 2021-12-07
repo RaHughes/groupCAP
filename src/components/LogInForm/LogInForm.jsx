@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 class LogInForm extends Component {
     constructor(props) {
@@ -15,13 +16,20 @@ class LogInForm extends Component {
         })
     }
 
+    onSubmit = (event) => {
+        event.preventDefault()
+        let response = axios.post("https://localhost:44394/api/authentication/login", { "username": this.state.username, "password": this.state.password })
+        console.log(response)
+    }
+
     render() { 
-        return ( <div>
+        return ( <form onSubmit={this.onSubmit}>
             <label> Username: </label>
             <input name="username" value={this.state.username} onChange={this.handleChange}></input>
             <label> Password: </label>
             <input name="password" value={this.state.password} onChange={this.handleChange}></input>
-        </div> );
+            <button type='submit'>Login</button>
+        </form> );
     }
 }
  
