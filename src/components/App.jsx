@@ -1,4 +1,9 @@
 import React, { Component } from 'react'; 
+import { Route, Routes } from 'react-router-dom';
+import LogInForm from './LogInForm/LogInForm';
+import NavBar from './NavBar/NavBar';
+import VideoGameForm from './VideoGameForm/VideoGameForm';
+import VideoGameList from './VideoGameList/VideoGameList';
 
 class App extends Component{
     constructor(props){
@@ -7,8 +12,13 @@ class App extends Component{
     }
 
     render(){
-        return <div>
-            <h1>Group Captsone</h1>
+        return <div className="App">
+            <NavBar />
+            <Routes>
+                <Route path="/" exact element={<VideoGameList />} />
+                <Route path="/Login" element={<LogInForm />} />
+                <Route path="/Sell" element={<VideoGameForm />} />
+            </Routes>
         </div>
     }
 }
