@@ -6,6 +6,7 @@ import VideoGameForm from './VideoGameForm/VideoGameForm';
 import VideoGameList from './VideoGameList/VideoGameList';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import VideoGameDetail from './VideoGameDetail/VideoGameDetail';
 
 class App extends Component{
     constructor(props){
@@ -50,14 +51,35 @@ class App extends Component{
         })
     }
 
+    getVideoGameDetail = (vg) => {
+        console.log(vg)
+        this.setState({
+            videoGame: vg
+        })
+
+    }
+
+     addItemToShoppingCart = async() => {
+        let videogameid
+        await axios({
+            method: "POST",
+            url: "https://localhost:44394/api/shoppingcart",
+            data: {
+                "userId": `${this.state.user.id}`,
+                "productId": parseInt(`${this.state.videoGame.id}`),
+                "quantity": 1
+            }
+        });
+    }
+
     render(){
         return <div className="App">
             <NavBar user={this.state.user} logout={this.logout} />
             <Routes>
-                <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} />} />
+                <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} getVg={this.getVideoGameDetail} />} />
                 <Route path="/Login" element={<LogInForm />} />
                 <Route path="/Sell" element={<VideoGameForm />} /> 
-                
+                <Route path="/Detail" element={<VideoGameDetail buyVideoGame = {this.addItemToShoppingCart} videoGame={this.state.videoGame} />} />
             </Routes>
         </div>
     }
