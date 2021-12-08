@@ -31,7 +31,7 @@ class App extends Component{
             url: "https://localhost:44394/api/examples/user",
             headers: {"Authorization": `Bearer ${token}`}})
         this.setState({
-            user
+            user: user.data
         })    
     } 
 
