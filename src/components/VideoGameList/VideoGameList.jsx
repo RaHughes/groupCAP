@@ -23,7 +23,7 @@ class VideoGameList extends Component {
     render() { 
         return ( <div>
             {this.state.videoGames.map(vg => {
-                return <div>
+                return <div key={Math.random()}>
                     <h1>{vg.title}</h1>
                     <h3>{vg.description}</h3>
                     <h4>{vg.system}</h4>
