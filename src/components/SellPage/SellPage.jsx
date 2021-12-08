@@ -36,7 +36,7 @@ class SellPage extends Component {
     return (
       <div>
         {this.props.videoGames.map(vg => {
-          <div key={Math.random()}>
+          return(<div key={vg.id}>
             <h1>{vg.title}</h1>
             <h3>{vg.description}</h3>
             <h4>{vg.system}</h4>
@@ -93,7 +93,7 @@ class SellPage extends Component {
               </form>
             </Modal>
             {/* <Link>Delete</Link> */}
-          </div>;
+          </div>)
         })}
         {/* <Link>List a Game</Link> */}
       </div>
