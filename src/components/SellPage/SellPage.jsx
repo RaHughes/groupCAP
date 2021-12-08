@@ -15,7 +15,7 @@ class SellPage extends Component {
         system: '',
         description: '',
         rating: 0,
-        userId: this.props.user.userId,
+        userId: this.props.user.id,
       },
       modalIsOpen: false,
     };
@@ -35,13 +35,13 @@ class SellPage extends Component {
   render() {
     return (
       <div>
-        {this.props.Games.map(vg => {
-          <div key={vg.id}>
+        {this.props.videoGames.map(vg => {
+          <div key={Math.random()}>
             <h1>{vg.title}</h1>
             <h3>{vg.description}</h3>
             <h4>{vg.system}</h4>
             <h4>{vg.price}</h4>
-            <Link>Details</Link>
+            {/* <Link>Details</Link> */}
             <button
               onclick={() =>
                 this.setState({
@@ -59,7 +59,7 @@ class SellPage extends Component {
             >
               Edit
             </button>
-            <Modal isOpen={modalIsOpen}>
+            <Modal isOpen={this.state.modalIsOpen}>
               <form onSubmit={this.handleEditSubmit}>
                 <label htmlFor=''>Title</label>
                 <input
@@ -92,10 +92,10 @@ class SellPage extends Component {
                 <button type='submit'>Submit</button>
               </form>
             </Modal>
-            <Link>Delete</Link>
+            {/* <Link>Delete</Link> */}
           </div>;
         })}
-        <Link>List a Game</Link>
+        {/* <Link>List a Game</Link> */}
       </div>
     );
   }

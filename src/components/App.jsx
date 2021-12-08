@@ -14,6 +14,7 @@ class App extends Component {
     super(props);
     this.state = {
       videoGames: [],
+      user: ''
     };
   }
 
@@ -25,6 +26,16 @@ class App extends Component {
     } catch {
       console.log('Something went wrong');
     }
+  }
+
+  editGame = async(game) => {
+    await axios({
+      method: "PUT",
+      url: `https://localhost:44394/api/videogames/${game.id}`,
+      data: {
+        game
+      }
+    })
   }
 
   async getUser(token) {
@@ -53,38 +64,37 @@ class App extends Component {
     });
   };
 
-    getVideoGameDetail = (vg) => {
-        console.log(vg)
-        this.setState({
-            videoGame: vg
-        })
+  getVideoGameDetail = (vg) => {
+      console.log(vg)
+      this.setState({
+          videoGame: vg
+      })
+  }
 
-    }
-
-     addItemToShoppingCart = async() => {
-        let videogameid
-        await axios({
-            method: "POST",
-            url: "https://localhost:44394/api/shoppingcart",
-            data: {
-                "userId": `${this.state.user.id}`,
-                "productId": parseInt(`${this.state.videoGame.id}`),
-                "quantity": 1
-            }
-        });
+  addItemToShoppingCart = async() => {
+      await axios({
+        method: "POST",
+        url: "https://localhost:44394/api/shoppingcart",
+        data: {
+          "userId": `${this.state.user.id}`,
+          "productId": parseInt(`${this.state.videoGame.id}`),
+          "quantity": 1
+        }
+      });
     }
 
     render(){
+      let userId = this.state.userId
         return <div className="App">
             <NavBar user={this.state.user} logout={this.logout} />
             <Routes>
                 <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} getVg={this.getVideoGameDetail} />} />
                 <Route path="/Login" element={<LogInForm />} />
-                <Route path='/Sell' element={ <SellPage user={this.state.user} games={this.state.videoGames.filter(vg => vg.user == this.state.user)} /> 
+                <Route path='/Sell' element={<SellPage user={this.state.user} videoGames={this.state.videoGames} editGame={this.editGame}/>} />
                 <Route path="/Detail" element={<VideoGameDetail buyVideoGame = {this.addItemToShoppingCart} videoGame={this.state.videoGame} />} />
             </Routes>
         </div>
     }
+  }
 
-}
 export default App;
