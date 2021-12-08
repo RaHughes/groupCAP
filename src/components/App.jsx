@@ -11,10 +11,12 @@ class App extends Component{
     constructor(props){
         super(props);
         this.state = {
+            videoGames: []
         }
     }
 
     componentDidMount() {
+        this.getVideoGames()
         const jwt = localStorage.getItem('token');
         try {
             const user = jwtDecode(jwt);
@@ -55,11 +57,18 @@ class App extends Component{
         })
     }
 
+    getVideoGames = async() => {
+        var response = await axios.get("https://localhost:44394/api/videogames")
+        this.setState({
+            videoGames: response.data
+        })
+    }
+
     render(){
         return <div className="App">
             <NavBar user={this.state.user} logout={this.logout} />
             <Routes>
-                <Route path="/" exact element={<VideoGameList />} />
+                <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} />} />
                 <Route path="/Login" element={<LogInForm setToken={this.setToken} />} />
                 <Route path="/Sell" element={<VideoGameForm />} /> 
                 
