@@ -16,61 +16,26 @@ class App extends Component {
     };
   }
 
-<<<<<<< HEAD
   componentDidMount() {
     this.getVideoGames();
     const jwt = localStorage.getItem('token');
     try {
-      const user = jwtDecode(jwt);
-      this.setState({
-        user,
-      });
+      this.getUser(jwt);
     } catch {
       console.log('Something went wrong');
     }
   }
 
-  async componentDidUpdate() {
-    localStorage.setItem('token', this.state.token);
-    try {
-      const user = jwtDecode(this.state.token);
-      // const user2 =  await axios({
-      //      method: 'GET',
-      //      url: "https://localhost:44394/api/authentication/login",
-      //      headers: {"Authorization": `Bearer ${this.state.token}`}})
-      this.setState({
-        user,
-      });
-      console.log(user);
-    } catch {
-      console.log('Something went wrong');
-    }
+  async getUser(token) {
+    let user = await axios({
+      method: 'GET',
+      url: 'https://localhost:44394/api/examples/user',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    this.setState({
+      user: user.data,
+    });
   }
-=======
-    componentDidMount() {
-        this.getVideoGames()
-        const jwt = localStorage.getItem('token');
-        try {
-            this.getUser(jwt)
-        } catch {
-            console.log('Something went wrong')
-        }
-    }
-      
-    async getUser(token) {
-        let user = await axios({
-            method: 'GET',
-            url: "https://localhost:44394/api/examples/user",
-            headers: {"Authorization": `Bearer ${token}`}})
-        this.setState({
-            user: user.data
-        })    
-    } 
->>>>>>> main
-
-  setToken = token => {
-    this.setState({ token: token });
-  };
 
   logout = () => {
     localStorage.removeItem('token');
@@ -80,7 +45,6 @@ class App extends Component {
     });
   };
 
-<<<<<<< HEAD
   getVideoGames = async () => {
     var response = await axios.get('https://localhost:44394/api/videogames');
     this.setState({
@@ -98,14 +62,12 @@ class App extends Component {
             exact
             element={<VideoGameList videoGames={this.state.videoGames} />}
           />
-          <Route
-            path='/Login'
-            element={<LogInForm setToken={this.setToken} />}
-          />
+          <Route path='/Login' element={<LogInForm />} />
           <Route
             path='/Sell'
             element={
               <SellPage
+                user={this.state.user}
                 Games={this.state.videoGames.filter(
                   vg => vg.user == this.state.user
                 )}
@@ -116,18 +78,5 @@ class App extends Component {
       </div>
     );
   }
-=======
-    render(){
-        return <div className="App">
-            <NavBar user={this.state.user} logout={this.logout} />
-            <Routes>
-                <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} />} />
-                <Route path="/Login" element={<LogInForm />} />
-                <Route path="/Sell" element={<VideoGameForm />} /> 
-                
-            </Routes>
-        </div>
-    }
->>>>>>> main
 }
 export default App;
