@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-function NavBar( {user} ) {
+function NavBar( {user, logout} ) {
     return ( 
     <nav>
         {user && <h4>Welcome {user.username}</h4>} 
@@ -18,7 +18,7 @@ function NavBar( {user} ) {
             {user &&
             <React.Fragment>
                 <li>
-                    <Link to='/Logout' > Logout </Link>
+                    <Link to='/' onClick={() => logout()}> Logout </Link>
                 </li>
                 <li>
                     <Link to='/Sell' > Sell </Link>
