@@ -16,6 +16,7 @@ class App extends Component {
     };
   }
 
+<<<<<<< HEAD
   componentDidMount() {
     this.getVideoGames();
     const jwt = localStorage.getItem('token');
@@ -45,6 +46,27 @@ class App extends Component {
       console.log('Something went wrong');
     }
   }
+=======
+    componentDidMount() {
+        this.getVideoGames()
+        const jwt = localStorage.getItem('token');
+        try {
+            this.getUser(jwt)
+        } catch {
+            console.log('Something went wrong')
+        }
+    }
+      
+    async getUser(token) {
+        let user = await axios({
+            method: 'GET',
+            url: "https://localhost:44394/api/examples/user",
+            headers: {"Authorization": `Bearer ${token}`}})
+        this.setState({
+            user: user.data
+        })    
+    } 
+>>>>>>> main
 
   setToken = token => {
     this.setState({ token: token });
@@ -58,6 +80,7 @@ class App extends Component {
     });
   };
 
+<<<<<<< HEAD
   getVideoGames = async () => {
     var response = await axios.get('https://localhost:44394/api/videogames');
     this.setState({
@@ -93,5 +116,18 @@ class App extends Component {
       </div>
     );
   }
+=======
+    render(){
+        return <div className="App">
+            <NavBar user={this.state.user} logout={this.logout} />
+            <Routes>
+                <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} />} />
+                <Route path="/Login" element={<LogInForm />} />
+                <Route path="/Sell" element={<VideoGameForm />} /> 
+                
+            </Routes>
+        </div>
+    }
+>>>>>>> main
 }
 export default App;
