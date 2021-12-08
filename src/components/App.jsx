@@ -19,35 +19,21 @@ class App extends Component{
         this.getVideoGames()
         const jwt = localStorage.getItem('token');
         try {
-            const user = jwtDecode(jwt);
-            this.setState({
-                user
-            })
+            this.getUser(jwt)
         } catch {
             console.log('Something went wrong')
         }
     }
-
-    async componentDidUpdate() {
-        localStorage.setItem('token', this.state.token);
-        try {
-            const user = jwtDecode(this.state.token);
-            // const user2 =  await axios({
-            //      method: 'GET',
-            //      url: "https://localhost:44394/api/authentication/login",
-            //      headers: {"Authorization": `Bearer ${this.state.token}`}})
-            this.setState({
-                user
-            })
-            console.log(user)
-        } catch {
-            console.log('Something went wrong')
-        }
-      } 
-
-    setToken = (token) => {
-        this.setState({token: token});
-    }
+      
+    async getUser(token) {
+        let user = await axios({
+            method: 'GET',
+            url: "https://localhost:44394/api/examples/user",
+            headers: {"Authorization": `Bearer ${token}`}})
+        this.setState({
+            user
+        })    
+    } 
 
     logout = () => {
         localStorage.removeItem('token')
@@ -69,7 +55,7 @@ class App extends Component{
             <NavBar user={this.state.user} logout={this.logout} />
             <Routes>
                 <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} />} />
-                <Route path="/Login" element={<LogInForm setToken={this.setToken} />} />
+                <Route path="/Login" element={<LogInForm />} />
                 <Route path="/Sell" element={<VideoGameForm />} /> 
                 
             </Routes>
