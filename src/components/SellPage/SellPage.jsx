@@ -41,61 +41,8 @@ class SellPage extends Component {
             <h3>{vg.description}</h3>
             <h4>{vg.system}</h4>
             <h4>{vg.price}</h4>
-            {/* <Link>Details</Link> */}
-            <button
-              onclick={() =>
-                this.setState({
-                  game: {
-                    id: vg.id,
-                    title: vg.title,
-                    description: vg.description,
-                    system: vg.system,
-                    price: vg.price,
-                    rating: vg.rating,
-                  },
-                  modalIsOpen: true,
-                })
-              }
-            >
-              Edit
-            </button>
-            <Modal isOpen={this.state.modalIsOpen}>
-              <form onSubmit={this.handleEditSubmit}>
-                <label htmlFor=''>Title</label>
-                <input
-                  type='text'
-                  name='game.title'
-                  value={this.state.game.title}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor=''>Description</label>
-                <input
-                  type='text'
-                  name='game.description'
-                  value={this.state.game.description}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor=''>System</label>
-                <input
-                  type='text'
-                  name='game.system'
-                  value={this.state.game.system}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor=''>Price</label>
-                <input
-                  type='number'
-                  name='game.price'
-                  value={this.state.game.price}
-                  onChange={this.handleChange}
-                />
-                <button type='submit'>Submit</button>
-              </form>
-            </Modal>
-            {/* <Link>Delete</Link> */}
           </div>;
         })}
-        {/* <Link>List a Game</Link> */}
       </div>
     );
   }
