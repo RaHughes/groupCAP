@@ -124,17 +124,9 @@ class App extends Component {
       <div className='App'>
         <NavBar user={this.state.user} logout={this.logout} />
         <Routes>
-          <Route
-            path='/'
-            exact
-            element={
-              <VideoGameList
-                videoGames={this.state.videoGames}
-                getVg={this.getVideoGameDetail}
-              />
-            }
-          />
+          <Route path='/' exact element={<VideoGameList videoGames={this.state.videoGames} getVg={this.getVideoGameDetail} />} />
           <Route path='/Login' element={<LogInForm />} />
+<<<<<<< HEAD
           <Route
             path='/Register'
             element={<UserRegister registerUser={this.registerUser} />}
@@ -164,6 +156,12 @@ class App extends Component {
             path='/Cart'
             element={<ShoppingCart user={this.state.user} />}
           />
+=======
+          <Route path='/Register' element={<UserRegister registerUser={this.registerUser} />} />
+          <Route path='/Sell' element={<SellPage user={this.state.user} videoGames={this.state.videoGames} editGame={this.editGame} deleteGame={this.deleteGame} />} />
+          <Route path='/Detail' element={<VideoGameDetail buyVideoGame={this.addItemToShoppingCart} videoGame={this.state.videoGame} />} />
+          <Route path='/Cart' element={<ShoppingCart user={this.state.user} />} />
+>>>>>>> 21173b90f9eda36cf8ded3dfb80e5b1ba4f70b0e
         </Routes>
       </div>
     );
