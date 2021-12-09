@@ -48,6 +48,11 @@ class App extends Component {
     this.getVideoGames();
   };
 
+  addGame = async game => {
+    await axios.post('https://localhost:44394/api/videogames', game);
+    this.getVideoGames();
+  };
+
   deleteGame = async gameId => {
     await axios.delete(`https://localhost:44394/api/videogames/${gameId}`);
     this.getVideoGames();
@@ -142,6 +147,7 @@ class App extends Component {
                 videoGames={this.state.videoGames}
                 editGame={this.editGame}
                 deleteGame={this.deleteGame}
+                addGame={this.addGame}
               />
             }
           />
