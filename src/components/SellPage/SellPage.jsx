@@ -7,55 +7,62 @@ class SellPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      game: {
-        id: '',
-        title: '',
-        price: 0,
-        category: '',
-        system: '',
-        description: '',
-        rating: 0,
-        userId: this.props.user.id,
-      },
+      id: '',
+      title: '',
+      price: 0,
+      category: '',
+      system: '',
+      description: '',
+      rating: 0,
+      userId: this.props.user.id,
       modalIsOpen: false,
     };
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value,
+      [event.target.name]: event.target.value
     });
   };
 
   handleEditSubmit = event => {
-    this.preventDefault();
-    this.props.editGame(this.state.game);
+    event.preventDefault();
+    let game = {
+      id: this.state.id,
+      title: this.state.title,
+      price: this.state.price,
+      category: this.state.category,
+      system: this.state.system,
+      description: this.state.description,
+      rating: this.state.rating,
+      userId: this.state.userId
+    }
+    console.log(game)
+    this.setState({modalIsOpen: false})
+    this.props.editGame(game);
   };
 
   render() {
+    let filteredList = this.props.videoGames.map(vg => vg.userId === this.state.userId)
     return (
       <div>
-        {this.props.videoGames.map(vg => {
+        {filteredList.map(vg => {
           return(<div key={vg.id}>
             <h1>{vg.title}</h1>
             <h3>{vg.description}</h3>
             <h4>{vg.system}</h4>
             <h4>{vg.price}</h4>
-<<<<<<< HEAD
-          </div>;
-=======
             {/* <Link>Details</Link> */}
             <button
-              onclick={() =>
+              onClick={() =>
                 this.setState({
-                  game: {
-                    id: vg.id,
-                    title: vg.title,
-                    description: vg.description,
-                    system: vg.system,
-                    price: vg.price,
-                    rating: vg.rating,
-                  },
+                  id: vg.id,
+                  title: vg.title,
+                  description: vg.description,
+                  system: vg.system,
+                  price: vg.price,
+                  category: vg.category,
+                  rating: vg.rating,
                   modalIsOpen: true,
                 })
               }
@@ -67,29 +74,29 @@ class SellPage extends Component {
                 <label htmlFor=''>Title</label>
                 <input
                   type='text'
-                  name='game.title'
-                  value={this.state.game.title}
+                  name='title'
+                  value={this.state.title}
                   onChange={this.handleChange}
                 />
                 <label htmlFor=''>Description</label>
                 <input
                   type='text'
-                  name='game.description'
-                  value={this.state.game.description}
+                  name='description'
+                  value={this.state.description}
                   onChange={this.handleChange}
                 />
                 <label htmlFor=''>System</label>
                 <input
                   type='text'
-                  name='game.system'
-                  value={this.state.game.system}
+                  name='system'
+                  value={this.state.system}
                   onChange={this.handleChange}
                 />
                 <label htmlFor=''>Price</label>
                 <input
                   type='number'
-                  name='game.price'
-                  value={this.state.game.price}
+                  name='price'
+                  value={this.state.price}
                   onChange={this.handleChange}
                 />
                 <button type='submit'>Submit</button>
@@ -97,7 +104,6 @@ class SellPage extends Component {
             </Modal>
             {/* <Link>Delete</Link> */}
           </div>)
->>>>>>> fab247e7d4ed8371492ff76cd751d1f3868e707b
         })}
       </div>
     );

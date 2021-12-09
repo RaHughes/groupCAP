@@ -14,6 +14,9 @@ function NavBar( {user, logout} ) {
                 <li>
                     <Link to='/Login' > Login </Link>
                 </li>
+                <li>
+                    <Link to='/Register' > Register </Link>
+                </li>
             </React.Fragment>}
             {user &&
             <React.Fragment>
@@ -22,6 +25,9 @@ function NavBar( {user, logout} ) {
                 </li>
                 <li>
                     <Link to='/Sell' > Sell </Link>
+                </li>
+                <li>
+                    <Link to='/Cart' > Cart </Link>
                 </li>
             </React.Fragment>
             }

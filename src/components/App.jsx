@@ -8,6 +8,8 @@ import VideoGameList from './VideoGameList/VideoGameList';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import VideoGameDetail from './VideoGameDetail/VideoGameDetail';
+import UserRegister from './UserRegister/UserRegister';
+import ShoppingCart from './ShoppingCart/ShoppingCart';
 
 class App extends Component {
   constructor(props) {
@@ -33,9 +35,17 @@ class App extends Component {
       method: "PUT",
       url: `https://localhost:44394/api/videogames/${game.id}`,
       data: {
-        game
-      }
+        "id": game.id,
+        "title": game.title,
+        "price": parseInt(game.price), 
+        "category": game.category,
+        "system": game.system,
+        "description": game.description,
+        "rating": parseInt(game.rating),
+        "userId": game.userId
+    }
     })
+    this.getVideoGames();
   }
 
   async getUser(token) {
@@ -83,15 +93,32 @@ class App extends Component {
       });
     }
 
+    registerUser = async(user) => {
+      await axios({
+        method: 'POST',
+        url: "https://localhost:44394/api/authentication",
+        data: {
+          "firstname": user.firstname,
+          "lastname": user.lastname,
+          "username": user.username,
+          "password": user.password,
+          "email": user.email,
+          "phonenumber": user.phonenumber
+        }
+      })
+      console.log(user)
+    }
+
     render(){
-      let userId = this.state.userId
         return <div className="App">
             <NavBar user={this.state.user} logout={this.logout} />
             <Routes>
                 <Route path="/" exact element={<VideoGameList videoGames={this.state.videoGames} getVg={this.getVideoGameDetail} />} />
                 <Route path="/Login" element={<LogInForm />} />
+                <Route path='/Register' element={<UserRegister registerUser={this.registerUser} />} />
                 <Route path='/Sell' element={<SellPage user={this.state.user} videoGames={this.state.videoGames} editGame={this.editGame}/>} />
-                <Route path="/Detail" element={<VideoGameDetail buyVideoGame = {this.addItemToShoppingCart} videoGame={this.state.videoGame} />} />
+                <Route path="/Detail" element={<VideoGameDetail buyVideoGame={this.addItemToShoppingCart} videoGame={this.state.videoGame} />} />
+                <Route path="/Cart" element={<ShoppingCart user={this.state.user} />} />
             </Routes>
         </div>
     }
