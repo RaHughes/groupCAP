@@ -29,10 +29,8 @@ class ShoppingCart extends Component {
     }
 
     async clearShoppingCart(usersCart) {
-        // this.props.purchaseGames(usersCart);
         console.log(usersCart);
         for(let i = 0; i < usersCart.length; i++) {
-            // this.state.purchasedGames.append(usersCart[i].videoGame)
             this.setState({
                 purchasedGames: [...this.state.purchasedGames, usersCart[i].videoGame]
             })
@@ -43,9 +41,6 @@ class ShoppingCart extends Component {
             }).then(response => console.log(`${response.data.videoGame.title} was deleted from ${response.data.user.firstName}'s Cart!`));
         };
         this.props.purchaseGames(this.state.purchasedGames);
-        // setTimeout(() => {
-        //     window.location = '/Review'
-        // }, 1000)
     };
 
     render() { 

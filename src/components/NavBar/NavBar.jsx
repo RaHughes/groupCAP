@@ -24,10 +24,13 @@ function NavBar( {user, logout} ) {
                     <Link to='/' onClick={() => logout()}> Logout </Link>
                 </li>
                 <li>
-                    <Link to='/Sell' > Sell </Link>
+                    <Link to='/Sell' > Sellers Page </Link>
                 </li>
                 <li>
                     <Link to='/Cart' > Cart </Link>
+                </li>
+                <li>
+                    <Link to ='/Review'> Review Page</Link>
                 </li>
             </React.Fragment>
             }
