@@ -48,7 +48,7 @@ class ReviewForm extends Component {
                 <h3>Please Leave a Review</h3><br/>
                 {this.state.videoGames.map(vg => {
                     return(
-                        <form onSubmit={() => this.handleSubmit(vg.id)}>
+                        <form onSubmit={() => this.handleSubmit(vg.id)} key={Math.random()}>
                             <h4>Title: {vg.title}</h4>
                             <label>Rating: </label>
                             <select name="rating" onChange={this.handleSelect}>
