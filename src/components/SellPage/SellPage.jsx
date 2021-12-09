@@ -19,9 +19,9 @@ class SellPage extends Component {
     };
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -35,75 +35,81 @@ class SellPage extends Component {
       system: this.state.system,
       description: this.state.description,
       rating: this.state.rating,
-      userId: this.state.userId
-    }
-    console.log(game)
-    this.setState({modalIsOpen: false})
+      userId: this.state.userId,
+    };
+    console.log(game);
+    this.setState({ modalIsOpen: false });
     this.props.editGame(game);
   };
 
+  handleDelete = gameId => this.props.deleteGame(gameId);
+
   render() {
-    let filteredList = this.props.videoGames.map(vg => vg.userId === this.state.userId)
+    let filteredList = this.props.videoGames.filter(
+      vg => vg.userId === this.state.userId
+    );
     return (
       <div>
         {filteredList.map(vg => {
-          return(<div key={vg.id}>
-            <h1>{vg.title}</h1>
-            <h3>{vg.description}</h3>
-            <h4>{vg.system}</h4>
-            <h4>{vg.price}</h4>
-            {/* <Link>Details</Link> */}
-            <button
-              onClick={() =>
-                this.setState({
-                  id: vg.id,
-                  title: vg.title,
-                  description: vg.description,
-                  system: vg.system,
-                  price: vg.price,
-                  category: vg.category,
-                  rating: vg.rating,
-                  modalIsOpen: true,
-                })
-              }
-            >
-              Edit
-            </button>
-            <Modal isOpen={this.state.modalIsOpen}>
-              <form onSubmit={this.handleEditSubmit}>
-                <label htmlFor=''>Title</label>
-                <input
-                  type='text'
-                  name='title'
-                  value={this.state.title}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor=''>Description</label>
-                <input
-                  type='text'
-                  name='description'
-                  value={this.state.description}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor=''>System</label>
-                <input
-                  type='text'
-                  name='system'
-                  value={this.state.system}
-                  onChange={this.handleChange}
-                />
-                <label htmlFor=''>Price</label>
-                <input
-                  type='number'
-                  name='price'
-                  value={this.state.price}
-                  onChange={this.handleChange}
-                />
-                <button type='submit'>Submit</button>
-              </form>
-            </Modal>
-            {/* <Link>Delete</Link> */}
-          </div>)
+          return (
+            <div key={vg.id}>
+              <h1>{vg.title}</h1>
+              <h3>{vg.description}</h3>
+              <h4>{vg.system}</h4>
+              <h4>{vg.price}</h4>
+              {/* <Link>Details</Link> */}
+              <button
+                onClick={() =>
+                  this.setState({
+                    id: vg.id,
+                    title: vg.title,
+                    description: vg.description,
+                    system: vg.system,
+                    price: vg.price,
+                    category: vg.category,
+                    rating: vg.rating,
+                    modalIsOpen: true,
+                  })
+                }
+              >
+                Edit
+              </button>
+              <Modal isOpen={this.state.modalIsOpen}>
+                <form onSubmit={this.handleEditSubmit}>
+                  <label htmlFor=''>Title</label>
+                  <input
+                    type='text'
+                    name='title'
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                  />
+                  <label htmlFor=''>Description</label>
+                  <input
+                    type='text'
+                    name='description'
+                    value={this.state.description}
+                    onChange={this.handleChange}
+                  />
+                  <label htmlFor=''>System</label>
+                  <input
+                    type='text'
+                    name='system'
+                    value={this.state.system}
+                    onChange={this.handleChange}
+                  />
+                  <label htmlFor=''>Price</label>
+                  <input
+                    type='number'
+                    name='price'
+                    value={this.state.price}
+                    onChange={this.handleChange}
+                  />
+                  <button type='submit'>Submit</button>
+                </form>
+              </Modal>
+              <button onClick={() => this.handleDelete(vg.id)}>Delete</button>
+            </div>
+          );
         })}
       </div>
     );
