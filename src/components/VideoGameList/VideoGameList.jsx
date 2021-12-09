@@ -8,7 +8,8 @@ class VideoGameList extends Component {
         this.state = {
           videoGames: this.props.videoGames,
           search: '',
-          flag: false
+          flag: false,
+          filterBy: 'title'
         };
     }
 
@@ -18,9 +19,16 @@ class VideoGameList extends Component {
         })
     }
 
+    handleSelect = (event) => {
+        event.preventDefault()
+        this.setState({
+            filterBy: event.target.value
+        })
+    }
+
     handleSubmit = (event) => {
         event.preventDefault()
-        let filteredGames = this.props.videoGames.filter(vg => vg.title.includes(this.state.search))
+        let filteredGames = this.props.videoGames.filter(vg => vg[this.state.filterBy].includes(this.state.search))
         this.setState({
             videoGames: filteredGames,
             flag: true
@@ -32,6 +40,11 @@ class VideoGameList extends Component {
             <form onSubmit={this.handleSubmit}>
             <label>Search: </label>
             <input name='search' onChange={this.handleChange}></input>
+            <select name="filterBy" onChange={this.handleSelect}>
+                <option value="title">Title</option>
+                <option value="category">Category</option>
+                <option value="system">System</option>
+            </select>
             <button type="submit">Search</button>
             </form>
             {this.state.flag === false ?
