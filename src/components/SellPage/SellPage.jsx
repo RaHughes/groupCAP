@@ -16,6 +16,7 @@ class SellPage extends Component {
       rating: 0,
       userId: this.props.user.id,
       modalIsOpen: false,
+      activeModal: '',
     };
   }
 
@@ -38,14 +39,22 @@ class SellPage extends Component {
       userId: this.state.userId,
     };
     console.log(game);
-    this.setState({ modalIsOpen: false });
+    this.setState({ activeModal: '', modalIsOpen: false });
     this.props.editGame(game);
   };
 
   handleDelete = gameId => this.props.deleteGame(gameId);
 
+  handleOpenEditModal = game =>
+    this.setState({
+      activeModal: game,
+      modalIsOpen: true,
+    });
+
   render() {
-    let filteredList = this.props.videoGames.filter( vg => vg.userId === this.state.userId);
+    let filteredList = this.props.videoGames.filter(
+      vg => vg.userId === this.state.userId
+    );
     return (
       <div>
         {filteredList.map(vg => {
@@ -57,7 +66,7 @@ class SellPage extends Component {
               <h4>{vg.price}</h4>
               {/* <Link>Details</Link> */}
               <button
-                onClick={() =>
+                onClick={() => (
                   this.setState({
                     id: vg.id,
                     title: vg.title,
@@ -66,13 +75,43 @@ class SellPage extends Component {
                     price: vg.price,
                     category: vg.category,
                     rating: vg.rating,
-                    modalIsOpen: true,
-                  })
-                }
+                  }),
+                  this.handleOpenEditModal(vg.title)
+                )}
               >
                 Edit
               </button>
-              <Modal isOpen={this.state.modalIsOpen}>
+              <Modal
+                isOpen={
+                  this.state.modalIsOpen && this.state.activeModal == vg.title
+                }
+                style={{
+                  overlay: {
+                    position: 'fixed',
+                    height: '30vh',
+                    width: '40%',
+                    top: 0,
+                    left: '50vw',
+                    right: 0,
+                    bottom: 0,
+                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+                  },
+                  content: {
+                    position: 'absolute',
+                    top: '40px',
+                    left: '40px',
+                    right: '40px',
+                    bottom: '40px',
+                    border: '1px solid #ccc',
+                    background: '#fff',
+                    overflow: 'auto',
+                    WebkitOverflowScrolling: 'touch',
+                    borderRadius: '4px',
+                    outline: 'none',
+                    padding: '20px',
+                  },
+                }}
+              >
                 <form onSubmit={this.handleEditSubmit}>
                   <label htmlFor=''>Title</label>
                   <input

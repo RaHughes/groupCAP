@@ -27,6 +27,17 @@ class ShoppingCart extends Component {
         console.log("Completed");
     }
 
+    async clearShoppingCart(usersCart) {
+        console.log(usersCart);
+        for(let i = 0; i < usersCart.length; i++) {
+            await axios({
+                method: "DELETE",
+                url: `https://localhost:44394/api/shoppingcart/${usersCart[i].id}`,
+            }).then(response => console.log(`${response.data.videoGame.title} was deleted from ${response.data.user.firstName}'s Cart!`));
+        };
+        window.location = '/Cart'
+    };
+
     render() { 
         let filteredCarts = this.state.shoppingCarts.filter(sc => sc.userId === this.state.userId);
         return (
@@ -37,9 +48,15 @@ class ShoppingCart extends Component {
                         <h3>{sc.videoGame.category}</h3>
                         <h3>{sc.videoGame.description}</h3>
                         <h3>{sc.videoGame.price}</h3>
-                        <h5>Sold By: {sc.user.firstName} {sc.user.lastName}</h5>
+                        <h5>Sold By: {sc.videoGame.user.firstName} {sc.videoGame.user.lastName}</h5>
                     </div>
                         )})}
+                {filteredCarts.length > 0 && 
+                    <button onClick={() => this.clearShoppingCart(filteredCarts)} >Checkout</button>
+                }
+                {filteredCarts.length === 0 &&
+                    <h1>You have no Items in your shopping cart!</h1>
+                }
             </div> 
         );
     }
