@@ -3,9 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import LogInForm from './LogInForm/LogInForm';
 import NavBar from './NavBar/NavBar';
 import SellPage from './SellPage/SellPage';
-import VideoGameForm from './VideoGameForm/VideoGameForm';
 import VideoGameList from './VideoGameList/VideoGameList';
-import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import VideoGameDetail from './VideoGameDetail/VideoGameDetail';
 import UserRegister from './UserRegister/UserRegister';
@@ -138,6 +136,7 @@ class App extends Component {
     this.setState({
       purchasedVideoGames: arr
     })
+    
   }
 
   render() {

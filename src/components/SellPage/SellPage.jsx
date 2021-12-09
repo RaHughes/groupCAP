@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
-import EditGame from '../EditGame/EditGame';
+
 
 class SellPage extends Component {
   constructor(props) {
@@ -104,7 +103,7 @@ class SellPage extends Component {
               </button>
               <Modal
                 isOpen={
-                  this.state.modalIsOpen && this.state.activeModal == vg.title
+                  this.state.modalIsOpen && this.state.activeModal === vg.title
                 }
                 style={{
                   overlay: {
@@ -192,7 +191,7 @@ class SellPage extends Component {
         > Add </button>
         <Modal
           isOpen={
-            this.state.modalIsOpen && this.state.activeModal == 'addNewSong'
+            this.state.modalIsOpen && this.state.activeModal === 'addNewSong'
           }
           style={{
             overlay: {
