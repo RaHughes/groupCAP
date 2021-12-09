@@ -8,7 +8,8 @@ class ShoppingCart extends Component {
         super(props);
         this.state = { 
             userId: this.props.user.id,
-            shoppingCarts: []
+            shoppingCarts: [],
+            purchasedGames: []
          }
     }
 
@@ -28,14 +29,23 @@ class ShoppingCart extends Component {
     }
 
     async clearShoppingCart(usersCart) {
+        // this.props.purchaseGames(usersCart);
         console.log(usersCart);
         for(let i = 0; i < usersCart.length; i++) {
+            // this.state.purchasedGames.append(usersCart[i].videoGame)
+            this.setState({
+                purchasedGames: [...this.state.purchasedGames, usersCart[i].videoGame]
+            })
+            console.log(this.state.purchasedGames)
             await axios({
                 method: "DELETE",
                 url: `https://localhost:44394/api/shoppingcart/${usersCart[i].id}`,
             }).then(response => console.log(`${response.data.videoGame.title} was deleted from ${response.data.user.firstName}'s Cart!`));
         };
-        window.location = '/Cart'
+        this.props.purchaseGames(this.state.purchasedGames);
+        // setTimeout(() => {
+        //     window.location = '/Review'
+        // }, 1000)
     };
 
     render() { 

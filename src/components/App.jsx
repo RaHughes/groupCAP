@@ -10,6 +10,7 @@ import axios from 'axios';
 import VideoGameDetail from './VideoGameDetail/VideoGameDetail';
 import UserRegister from './UserRegister/UserRegister';
 import ShoppingCart from './ShoppingCart/ShoppingCart';
+import ReviewForm from './ReviewForm/ReviewForm';
 
 class App extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class App extends Component {
     this.state = {
       videoGames: [],
       user: '',
+      purchasedVideoGames: []
     };
   }
 
@@ -131,6 +133,13 @@ class App extends Component {
     console.log(user);
   };
 
+  getPurchasedGames = (arr) => {
+    console.log(arr);
+    this.setState({
+      purchasedVideoGames: arr
+    })
+  }
+
   render() {
     return (
       <div className='App'>
@@ -165,7 +174,11 @@ class App extends Component {
           />
           <Route
             path='/Cart'
-            element={<ShoppingCart user={this.state.user} />}
+            element={<ShoppingCart user={this.state.user} purchaseGames={this.getPurchasedGames} />}
+          />
+          <Route 
+            path='/Review'
+            element={<ReviewForm userId={this.state.user.id} videoGamesPurchased={this.state.purchasedVideoGames} />}
           />
         </Routes>
       </div>
