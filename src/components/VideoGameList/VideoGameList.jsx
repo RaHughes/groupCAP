@@ -51,18 +51,20 @@ class VideoGameList extends Component {
             this.props.videoGames.map(vg => {
                 return <div key={Math.random()}>
                     <h1>{vg.title}</h1>
-                    <h3>{vg.description}</h3>
-                    <h4>{vg.system}</h4>
-                    <h4>{vg.price}</h4>
+                    <h3>Description: {vg.description}</h3>
+                    <h4>System: {vg.system}</h4>
+                    <h4>Price: {vg.price}</h4>
+                    <h4>Category: {vg.category}</h4>
                     <Link to='/Detail' onClick={ () => this.props.getVg(vg)} >View Product</Link>
                 </div>}) 
                 : 
             this.state.videoGames.map(vg => {
                 return <div key={Math.random()}>
                     <h1>{vg.title}</h1>
-                    <h3>{vg.description}</h3>
-                    <h4>{vg.system}</h4>
-                    <h4>{vg.price}</h4>
+                    <h3>Description: {vg.description}</h3>
+                    <h4>System: {vg.system}</h4>
+                    <h4>Price: {vg.price}</h4>
+                    <h4>Category: {vg.category}</h4>
                     <Link to='/Detail' onClick={ () => this.props.getVg(vg)} >View Product</Link>
                 </div>})} 
         </div>);
