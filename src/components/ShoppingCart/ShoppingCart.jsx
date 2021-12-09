@@ -1,6 +1,7 @@
-import axios from 'axios';
+
 import React, {Component} from 'react';
 import Modal from 'react-modal';
+import axios from 'axios';
 
 class ShoppingCart extends Component {
     constructor(props) {
@@ -16,24 +17,34 @@ class ShoppingCart extends Component {
     }
 
     async getShoppingCarts() {
-        let userId = `${this.state.userId}`
+        let userId = this.state.userId
         console.log(userId)
-        let response = await axios({
+        await axios({
             method: "GET",
-            url: "https://localhost:44394/api/shoppingcart/all",
-            data: {
-                userId: userId
-            }
-        })
-        this.setState({
-            shoppingCarts: response.data
-        })
+            url: "https://localhost:44394/api/shoppingcart/",
+            data: {}
+        }).then(response => this.setState({shoppingCarts: response.data}));
+        console.log("Completed");
+        // this.setState({
+        //     shoppingCarts: response.data
+        // })
     }
 
     render() { 
-        return ( <div>
-
-        </div> );
+        let filteredCarts = this.state.shoppingCarts.filter(sc => sc.userId === this.state.userId);
+        return (
+            <div>
+                {filteredCarts.map(sc => {return(
+                    <div key={sc.id}>
+                        <h1>{sc.videoGame.title}</h1>
+                        <h3>{sc.videoGame.category}</h3>
+                        <h3>{sc.videoGame.description}</h3>
+                        <h3>{sc.videoGame.price}</h3>
+                        <h5>Sold By: {sc.user.firstName} {sc.user.lastName}</h5>
+                    </div>
+                        )})}
+            </div> 
+        );
     }
 }
  
