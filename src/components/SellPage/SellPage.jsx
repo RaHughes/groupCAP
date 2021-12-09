@@ -97,7 +97,7 @@ class SellPage extends Component {
                     category: vg.category,
                     rating: vg.rating,
                   }),
-                  this.handleOpenEditModal(vg.title)
+                  this.handleOpenModal(vg.title)
                 )}
               >
                 Edit
@@ -187,9 +187,9 @@ class SellPage extends Component {
               category: '',
               rating: 0,
             }),
-            this.handleOpenEditModal('addNewSong')
+            this.handleOpenModal('addNewSong')
           )}
-        ></button>
+        > Add </button>
         <Modal
           isOpen={
             this.state.modalIsOpen && this.state.activeModal == 'addNewSong'
