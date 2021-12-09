@@ -43,7 +43,7 @@ class SellPage extends Component {
   };
 
   render() {
-    let filteredList = this.props.videoGames.map(vg => vg.userId === this.state.userId)
+    let filteredList = this.props.videoGames.filter(vg => vg.userId === this.state.userId)
     return (
       <div>
         {filteredList.map(vg => {
