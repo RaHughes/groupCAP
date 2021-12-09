@@ -33,7 +33,7 @@ class App extends Component {
   editGame = async game => {
     await axios({
       method: 'PUT',
-      url: `https://localhost:44395/api/videogames/${game.id}`,
+      url: `https://localhost:44394/api/videogames/${game.id}`,
       data: {
         id: game.id,
         title: game.title,
@@ -49,14 +49,14 @@ class App extends Component {
   };
 
   deleteGame = async gameId => {
-    await axios.delete(`https://localhost:44395/api/videogames/${gameId}`);
+    await axios.delete(`https://localhost:44394/api/videogames/${gameId}`);
     this.getVideoGames();
   };
 
   async getUser(token) {
     let user = await axios({
       method: 'GET',
-      url: 'https://localhost:44395/api/examples/user',
+      url: 'https://localhost:44394/api/examples/user',
       headers: { Authorization: `Bearer ${token}` },
     });
     this.setState({
@@ -73,7 +73,7 @@ class App extends Component {
   };
 
   getVideoGames = async () => {
-    var response = await axios.get('https://localhost:44395/api/videogames');
+    var response = await axios.get('https://localhost:44394/api/videogames');
     this.setState({
       videoGames: response.data,
     });
@@ -89,7 +89,7 @@ class App extends Component {
   addItemToShoppingCart = async () => {
     await axios({
       method: 'POST',
-      url: 'https://localhost:44395/api/shoppingcart',
+      url: 'https://localhost:44394/api/shoppingcart',
       data: {
         userId: `${this.state.user.id}`,
         productId: parseInt(`${this.state.videoGame.id}`),
@@ -101,7 +101,7 @@ class App extends Component {
   registerUser = async user => {
     await axios({
       method: 'POST',
-      url: 'https://localhost:44395/api/authentication',
+      url: 'https://localhost:44394/api/authentication',
       data: {
         firstname: user.firstname,
         lastname: user.lastname,

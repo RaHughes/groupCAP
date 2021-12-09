@@ -20,7 +20,7 @@ class LogInForm extends Component {
     event.preventDefault();
     await axios({
       method: 'post',
-      url: 'https://localhost:44395/api/authentication/login',
+      url: 'https://localhost:44394/api/authentication/login',
       headers: {},
       data: {
         username: this.state.username,
