@@ -25,9 +25,6 @@ class ShoppingCart extends Component {
             data: {}
         }).then(response => this.setState({shoppingCarts: response.data}));
         console.log("Completed");
-        // this.setState({
-        //     shoppingCarts: response.data
-        // })
     }
 
     render() { 
