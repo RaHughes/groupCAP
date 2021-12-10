@@ -110,47 +110,56 @@ class SellPage extends Component {
                   <Modal.Title>Edit Details for {vg.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <form onSubmit={this.handleEditSubmit}>
-                    <label htmlFor=''>Title</label>
-                    <input
-                      type='text'
-                      name='title'
-                      value={this.state.title}
-                      onChange={this.handleChange}
-                    />
-                    <label htmlFor=''>Description</label>
-                    <input
-                      type='text'
-                      name='description'
-                      value={this.state.description}
-                      onChange={this.handleChange}
-                    />
-                    <label htmlFor=''>Category</label>
-                    <input
-                      type='text'
-                      name='category'
-                      value={this.state.category}
-                      onChange={this.handleChange}
-                    />
-                    <label htmlFor=''>System</label>
-                    <input
-                      type='text'
-                      name='system'
-                      value={this.state.system}
-                      onChange={this.handleChange}
-                    />
-                    <label htmlFor=''>Price</label>
-                    <input
-                      type='number'
-                      name='price'
-                      value={this.state.price}
-                      onChange={this.handleChange}
-                    />
-
+                  <Form onSubmit={this.handleEditSubmit}>
+                    <Form.Group>
+                      <Form.Label htmlFor=''>Title</Form.Label>
+                      <Form.Control
+                        type='text'
+                        name='title'
+                        value={this.state.title}
+                        onChange={this.handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label htmlFor=''>Description</Form.Label>
+                      <Form.Control
+                        type='text'
+                        name='description'
+                        value={this.state.description}
+                        onChange={this.handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label htmlFor=''>Category</Form.Label>
+                      <Form.Control
+                        type='text'
+                        name='category'
+                        value={this.state.category}
+                        onChange={this.handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label htmlFor=''>System</Form.Label>
+                      <Form.Control
+                        type='text'
+                        name='system'
+                        value={this.state.system}
+                        onChange={this.handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group>
+                      <Form.Label htmlFor=''>Price</Form.Label>
+                      <Form.Control
+                        type='number'
+                        name='price'
+                        value={this.state.price}
+                        onChange={this.handleChange}
+                      />
+                    </Form.Group>
                     <Button variant='primary' type='submit'>
                       Submit
                     </Button>
-                  </form>
+                  </Form>
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant='secondary' onClick={this.handleCloseModal}>
