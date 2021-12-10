@@ -155,7 +155,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <NavBar user={this.state.user} logout={this.logout} />
+        <NavBar bg="light" expand="lg" user={this.state.user} logout={this.logout} />
         <Routes>
           <Route path='/' exact element={<VideoGameList videoGames={this.state.videoGames} getVg={this.getVideoGameDetail} />} />
           <Route path='/Login' element={<LogInForm />} />

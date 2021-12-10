@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 
 class ShoppingCart extends Component {
   constructor(props) {
@@ -53,19 +54,27 @@ class ShoppingCart extends Component {
         {filteredCarts.map(sc => {
           return (
             <div key={sc.id}>
-              <h1>{sc.videoGame.title}</h1>
-              <h3>{sc.videoGame.category}</h3>
-              <h3>{sc.videoGame.description}</h3>
-              <h3>{sc.videoGame.price}</h3>
-              <h5>
-                Sold By: {sc.videoGame.user.firstName} 
-                {sc.videoGame.user.lastName}
-              </h5>
+                <Card style={{ width: '22rem' }}>
+                  {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> This is left for introduction to an image.    */}
+                  <Card.Header>Product</Card.Header>
+                  <Card.Body>
+                    <Card.Title>{sc.videoGame.title}</Card.Title>
+                    <Card.Text>
+                      Description: {sc.videoGame.description}
+                    </Card.Text>
+                  </Card.Body>
+                  <ListGroup className="list-group-flush">
+                    <ListGroupItem>Category: {sc.videoGame.category}</ListGroupItem>
+                    <ListGroupItem>Price: {sc.videoGame.price}</ListGroupItem>
+                  </ListGroup>
+                </Card>
+                <br/>
+                <br/>
             </div>
           );
         })}
         {filteredCarts.length > 0 && (
-          <button onClick={() => this.clearShoppingCart(filteredCarts)}>
+          <button class="btn btn-secondary" onClick={() => this.clearShoppingCart(filteredCarts)}>
             Checkout
           </button>
         )}
