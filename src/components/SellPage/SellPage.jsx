@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
-
+import Modal from 'react-bootstrap';
 
 class SellPage extends Component {
   constructor(props) {
@@ -101,7 +100,7 @@ class SellPage extends Component {
                 Edit
               </button>
               <Modal
-                isOpen={
+                show={
                   this.state.modalIsOpen && this.state.activeModal === vg.title
                 }
                 style={{
@@ -187,7 +186,10 @@ class SellPage extends Component {
             }),
             this.handleOpenModal('addNewSong')
           )}
-        > Add </button>
+        >
+          {' '}
+          Add{' '}
+        </button>
         <Modal
           isOpen={
             this.state.modalIsOpen && this.state.activeModal === 'addNewSong'
