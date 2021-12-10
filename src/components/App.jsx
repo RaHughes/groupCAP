@@ -39,6 +39,10 @@ class App extends Component {
     })
   }
 
+  reviewHelper = () => {
+    this.getReviews()
+  }
+
   editGame = async game => {
     await axios({
       method: 'PUT',
@@ -188,7 +192,7 @@ class App extends Component {
           />
           <Route 
             path='/Review'
-            element={<ReviewForm userId={this.state.user.id} videoGamesPurchased={this.state.purchasedVideoGames} />}
+            element={<ReviewForm userId={this.state.user.id} videoGamesPurchased={this.state.purchasedVideoGames} helper={this.reviewHelper}/>}
           />
         </Routes>
       </div>

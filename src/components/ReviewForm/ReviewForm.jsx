@@ -42,6 +42,7 @@ class ReviewForm extends Component {
     console.log('Review Created!');
     this.handleCloseModal(event);
     this.clearSingleReview(this.state.videoGameId)
+    this.props.helper()
   };
 
   clearSingleReview(videoGameId) {
