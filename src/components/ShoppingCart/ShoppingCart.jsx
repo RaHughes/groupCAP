@@ -58,7 +58,7 @@ class ShoppingCart extends Component {
               <h3>{sc.videoGame.description}</h3>
               <h3>{sc.videoGame.price}</h3>
               <h5>
-                Sold By: {sc.videoGame.user.firstName}{' '}
+                Sold By: {sc.videoGame.user.firstName} 
                 {sc.videoGame.user.lastName}
               </h5>
             </div>
