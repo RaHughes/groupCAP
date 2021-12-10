@@ -43,6 +43,7 @@ class SellPage extends Component {
 
   handleAddSubmit = event => {
     event.preventDefault();
+    console.log(this.state.userId)
     let game = {
       id: this.state.id,
       title: this.state.title,
@@ -173,7 +174,7 @@ class SellPage extends Component {
             </div>
           );
         })}
-        <button
+        {this.state.userId === undefined ? <h4>You must be logged in to Sell</h4> : <button
           onClick={() => (
             this.setState({
               id: '',
@@ -186,10 +187,7 @@ class SellPage extends Component {
             }),
             this.handleOpenModal('addNewSong')
           )}
-        >
-          {' '}
-          Add{' '}
-        </button>
+        >Add</button>}
         <Modal
           isOpen={
             this.state.modalIsOpen && this.state.activeModal === 'addNewSong'
