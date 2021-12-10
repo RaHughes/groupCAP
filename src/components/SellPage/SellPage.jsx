@@ -84,7 +84,6 @@ class SellPage extends Component {
               <h4>{vg.category}</h4>
               <h4>{vg.system}</h4>
               <h4>{vg.price}</h4>
-              {/* <Link>Details</Link> */}
               <button
                 onClick={() => (
                   this.setState({

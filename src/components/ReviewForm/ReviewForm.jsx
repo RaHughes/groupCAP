@@ -51,7 +51,7 @@ class ReviewForm extends Component {
                         <form onSubmit={() => this.handleSubmit(vg.id)} key={Math.random()}>
                             <h4>Title: {vg.title}</h4>
                             <label>Rating: </label>
-                            <select name="rating" onChange={this.handleSelect}>
+                            <select name="rating" value={this.state.rating} onChange={this.handleSelect}>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
