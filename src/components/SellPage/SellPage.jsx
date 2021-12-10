@@ -43,9 +43,7 @@ class SellPage extends Component {
     this.props.editGame(game);
   };
 
-  handleAddSubmit = (event, vg) => {
-    event.preventDefault();
-    console.log(this.state.userId);
+  handleAddSubmit = vg => {
     let game = {
       title: vg.title,
       price: vg.price,
@@ -133,18 +131,20 @@ class SellPage extends Component {
           <h4>You must be logged in to Sell</h4>
         ) : (
           <button
-            onClick={() => (
-              this.setState({
-                id: '',
-                title: '',
-                description: '',
-                system: '',
-                price: 0,
-                category: '',
-                rating: 0,
-              }),
-              this.handleOpenModal('addNewSong')
-            )}
+            onClick={() =>
+              this.setState(
+                {
+                  id: '',
+                  title: '',
+                  description: '',
+                  system: '',
+                  price: 0,
+                  category: '',
+                  rating: 0,
+                },
+                this.handleOpenModal('addNewSong')
+              )
+            }
           >
             Add
           </button>
@@ -159,49 +159,12 @@ class SellPage extends Component {
             <Modal.Title>Sell a Game</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form onSubmit={this.handleAddSubmit}>
-              <label htmlFor=''>Title</label>
-              <input
-                type='text'
-                name='title'
-                value={this.state.title}
-                onChange={this.handleChange}
+            {this.state.activeModal === 'addNewSong' && (
+              <VideoGameForm
+                game={this.state.game}
+                submit={this.handleAddSubmit}
               />
-              <label htmlFor=''>Description</label>
-              <input
-                type='text'
-                name='description'
-                value={this.state.description}
-                onChange={this.handleChange}
-              />
-              <label htmlFor=''>Category</label>
-              <input
-                type='text'
-                name='category'
-                value={this.state.category}
-                onChange={this.handleChange}
-              />
-              <label htmlFor=''>System</label>
-              <input
-                type='text'
-                name='system'
-                value={this.state.system}
-                onChange={this.handleChange}
-              />
-              <label htmlFor=''>Price</label>
-              <input
-                type='number'
-                name='price'
-                value={this.state.price}
-                onChange={this.handleChange}
-              />
-              <Button variant='secondary' onClick={this.handleCloseModal}>
-                Cancel
-              </Button>
-              <Button variant='primary' type='submit'>
-                Submit
-              </Button>
-            </form>
+            )}
           </Modal.Body>
         </Modal>
       </div>
