@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-dom';
 
 const VideoGameDetail = (props) => {
     return ( 
@@ -7,7 +8,7 @@ const VideoGameDetail = (props) => {
             <h3>{props.videoGame.description}</h3>
             <h4>{props.videoGame.system}</h4>
             <h4>{props.videoGame.price}</h4>
-            <button onClick={() => props.buyVideoGame()}>Buy Product</button>
+            {props.user !== '' ? <button onClick={() => props.buyVideoGame()}>Buy Product</button> : <h4>You must be logged in to purchase this game</h4>}
             {props.reviews.map(rv => {
                 if(props.videoGame.id === rv.videoGameId){
                   return(

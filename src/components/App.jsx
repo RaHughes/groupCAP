@@ -175,6 +175,7 @@ class App extends Component {
             path='/Detail'
             element={
               <VideoGameDetail
+                user={this.state.user}
                 buyVideoGame={this.addItemToShoppingCart}
                 videoGame={this.state.videoGame}
                 reviews = {this.state.reviews}
