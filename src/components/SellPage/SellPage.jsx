@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
+import VideoGameForm from '../VideoGameForm/VideoGameForm';
 
 class SellPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
-      title: '',
-      price: 0,
-      category: '',
-      system: '',
-      description: '',
-      rating: 0,
+      game: {
+        id: '',
+        title: '',
+        price: 0,
+        category: '',
+        system: '',
+        description: '',
+        rating: 0,
+      },
       userId: this.props.user.id,
       modalIsOpen: false,
       activeModal: '',
@@ -24,16 +27,15 @@ class SellPage extends Component {
     });
   };
 
-  handleEditSubmit = event => {
-    event.preventDefault();
+  handleEditSubmit = vg => {
     let game = {
-      id: this.state.id,
-      title: this.state.title,
-      price: this.state.price,
-      category: this.state.category,
-      system: this.state.system,
-      description: this.state.description,
-      rating: this.state.rating,
+      id: this.state.game.id,
+      title: vg.title,
+      price: vg.price,
+      category: vg.category,
+      system: vg.system,
+      description: vg.description,
+      rating: this.state.game.rating,
       userId: this.state.userId,
     };
     console.log(game);
@@ -41,16 +43,15 @@ class SellPage extends Component {
     this.props.editGame(game);
   };
 
-  handleAddSubmit = event => {
+  handleAddSubmit = (event, vg) => {
     event.preventDefault();
     console.log(this.state.userId);
     let game = {
-      id: this.state.id,
-      title: this.state.title,
-      price: this.state.price,
-      category: this.state.category,
-      system: this.state.system,
-      description: this.state.description,
+      title: vg.title,
+      price: vg.price,
+      category: vg.category,
+      system: vg.system,
+      description: vg.description,
       rating: this.state.rating,
       userId: this.state.userId,
     };
@@ -70,6 +71,22 @@ class SellPage extends Component {
   handleCloseModal = () =>
     this.setState({ activeModal: '', modalIsOpen: false });
 
+  handleEditClick = vg => {
+    let selectedGame = { ...this.state.game };
+    selectedGame.id = vg.id;
+    selectedGame.title = vg.title;
+    selectedGame.description = vg.description;
+    selectedGame.system = vg.system;
+    selectedGame.price = vg.price;
+    selectedGame.category = vg.category;
+    selectedGame.rating = vg.rating;
+    this.setState(
+      { game: selectedGame },
+      console.log(this.state.game),
+      this.handleOpenModal(vg.title)
+    );
+  };
+
   render() {
     let filteredList = this.props.videoGames.filter(
       vg => vg.userId === this.state.userId
@@ -84,22 +101,7 @@ class SellPage extends Component {
               <h4>{vg.category}</h4>
               <h4>{vg.system}</h4>
               <h4>{vg.price}</h4>
-              <button
-                onClick={() => (
-                  this.setState({
-                    id: vg.id,
-                    title: vg.title,
-                    description: vg.description,
-                    system: vg.system,
-                    price: vg.price,
-                    category: vg.category,
-                    rating: vg.rating,
-                  }),
-                  this.handleOpenModal(vg.title)
-                )}
-              >
-                Edit
-              </button>
+              <button onClick={() => this.handleEditClick(vg)}>Edit</button>
               <Modal
                 show={
                   this.state.modalIsOpen && this.state.activeModal === vg.title
@@ -110,56 +112,12 @@ class SellPage extends Component {
                   <Modal.Title>Edit Details for {vg.title}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form onSubmit={this.handleEditSubmit}>
-                    <Form.Group>
-                      <Form.Label htmlFor=''>Title</Form.Label>
-                      <Form.Control
-                        type='text'
-                        name='title'
-                        value={this.state.title}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label htmlFor=''>Description</Form.Label>
-                      <Form.Control
-                        type='text'
-                        name='description'
-                        value={this.state.description}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label htmlFor=''>Category</Form.Label>
-                      <Form.Control
-                        type='text'
-                        name='category'
-                        value={this.state.category}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label htmlFor=''>System</Form.Label>
-                      <Form.Control
-                        type='text'
-                        name='system'
-                        value={this.state.system}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
-                    <Form.Group>
-                      <Form.Label htmlFor=''>Price</Form.Label>
-                      <Form.Control
-                        type='number'
-                        name='price'
-                        value={this.state.price}
-                        onChange={this.handleChange}
-                      />
-                    </Form.Group>
-                    <Button variant='primary' type='submit'>
-                      Submit
-                    </Button>
-                  </Form>
+                  {this.state.activeModal === vg.title && (
+                    <VideoGameForm
+                      game={this.state.game}
+                      submit={this.handleEditSubmit}
+                    />
+                  )}
                 </Modal.Body>
                 <Modal.Footer>
                   <Button variant='secondary' onClick={this.handleCloseModal}>
