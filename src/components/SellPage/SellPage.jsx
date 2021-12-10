@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
+import { Modal, Form, Button } from 'react-bootstrap';
 
 class SellPage extends Component {
   constructor(props) {
@@ -43,7 +43,7 @@ class SellPage extends Component {
 
   handleAddSubmit = event => {
     event.preventDefault();
-    console.log(this.state.userId)
+    console.log(this.state.userId);
     let game = {
       id: this.state.id,
       title: this.state.title,
@@ -104,159 +104,138 @@ class SellPage extends Component {
                 show={
                   this.state.modalIsOpen && this.state.activeModal === vg.title
                 }
-                style={{
-                  overlay: {
-                    position: 'fixed',
-                    height: '30vh',
-                    width: '40%',
-                    top: 0,
-                    left: '50vw',
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                  },
-                  content: {
-                    position: 'absolute',
-                    top: '40px',
-                    left: '40px',
-                    right: '40px',
-                    bottom: '40px',
-                    border: '1px solid #ccc',
-                    background: '#fff',
-                    overflow: 'auto',
-                    WebkitOverflowScrolling: 'touch',
-                    borderRadius: '4px',
-                    outline: 'none',
-                    padding: '20px',
-                  },
-                }}
+                onHide={this.handleCloseModal}
               >
-                <form onSubmit={this.handleEditSubmit}>
-                  <label htmlFor=''>Title</label>
-                  <input
-                    type='text'
-                    name='title'
-                    value={this.state.title}
-                    onChange={this.handleChange}
-                  />
-                  <label htmlFor=''>Description</label>
-                  <input
-                    type='text'
-                    name='description'
-                    value={this.state.description}
-                    onChange={this.handleChange}
-                  />
-                  <label htmlFor=''>Category</label>
-                  <input
-                    type='text'
-                    name='category'
-                    value={this.state.category}
-                    onChange={this.handleChange}
-                  />
-                  <label htmlFor=''>System</label>
-                  <input
-                    type='text'
-                    name='system'
-                    value={this.state.system}
-                    onChange={this.handleChange}
-                  />
-                  <label htmlFor=''>Price</label>
-                  <input
-                    type='number'
-                    name='price'
-                    value={this.state.price}
-                    onChange={this.handleChange}
-                  />
-                  <button type='submit'>Submit</button>
-                </form>
+                <Modal.Header closeButton>
+                  <Modal.Title>Edit Details for {vg.title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <form onSubmit={this.handleEditSubmit}>
+                    <label htmlFor=''>Title</label>
+                    <input
+                      type='text'
+                      name='title'
+                      value={this.state.title}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor=''>Description</label>
+                    <input
+                      type='text'
+                      name='description'
+                      value={this.state.description}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor=''>Category</label>
+                    <input
+                      type='text'
+                      name='category'
+                      value={this.state.category}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor=''>System</label>
+                    <input
+                      type='text'
+                      name='system'
+                      value={this.state.system}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor=''>Price</label>
+                    <input
+                      type='number'
+                      name='price'
+                      value={this.state.price}
+                      onChange={this.handleChange}
+                    />
+
+                    <Button variant='primary' type='submit'>
+                      Submit
+                    </Button>
+                  </form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant='secondary' onClick={this.handleCloseModal}>
+                    Cancel
+                  </Button>
+                </Modal.Footer>
               </Modal>
               <button onClick={() => this.handleDelete(vg.id)}>Delete</button>
             </div>
           );
         })}
-        {this.state.userId === undefined ? <h4>You must be logged in to Sell</h4> : <button
-          onClick={() => (
-            this.setState({
-              id: '',
-              title: '',
-              description: '',
-              system: '',
-              price: 0,
-              category: '',
-              rating: 0,
-            }),
-            this.handleOpenModal('addNewSong')
-          )}
-        >Add</button>}
+        {this.state.userId === undefined ? (
+          <h4>You must be logged in to Sell</h4>
+        ) : (
+          <button
+            onClick={() => (
+              this.setState({
+                id: '',
+                title: '',
+                description: '',
+                system: '',
+                price: 0,
+                category: '',
+                rating: 0,
+              }),
+              this.handleOpenModal('addNewSong')
+            )}
+          >
+            Add
+          </button>
+        )}
         <Modal
-          isOpen={
+          show={
             this.state.modalIsOpen && this.state.activeModal === 'addNewSong'
           }
-          style={{
-            overlay: {
-              position: 'fixed',
-              height: '30vh',
-              width: '40%',
-              top: 0,
-              left: '50vw',
-              right: 0,
-              bottom: 0,
-              backgroundColor: 'rgba(255, 255, 255, 0.75)',
-            },
-            content: {
-              position: 'absolute',
-              top: '40px',
-              left: '40px',
-              right: '40px',
-              bottom: '40px',
-              border: '1px solid #ccc',
-              background: '#fff',
-              overflow: 'auto',
-              WebkitOverflowScrolling: 'touch',
-              borderRadius: '4px',
-              outline: 'none',
-              padding: '20px',
-            },
-          }}
+          onHide={this.handleCloseModal}
         >
-          <form onSubmit={this.handleAddSubmit}>
-            <label htmlFor=''>Title</label>
-            <input
-              type='text'
-              name='title'
-              value={this.state.title}
-              onChange={this.handleChange}
-            />
-            <label htmlFor=''>Description</label>
-            <input
-              type='text'
-              name='description'
-              value={this.state.description}
-              onChange={this.handleChange}
-            />
-            <label htmlFor=''>Category</label>
-            <input
-              type='text'
-              name='category'
-              value={this.state.category}
-              onChange={this.handleChange}
-            />
-            <label htmlFor=''>System</label>
-            <input
-              type='text'
-              name='system'
-              value={this.state.system}
-              onChange={this.handleChange}
-            />
-            <label htmlFor=''>Price</label>
-            <input
-              type='number'
-              name='price'
-              value={this.state.price}
-              onChange={this.handleChange}
-            />
-            <button type='submit'>Submit</button>
-          </form>
+          <Modal.Header closeButton>
+            <Modal.Title>Sell a Game</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form onSubmit={this.handleAddSubmit}>
+              <label htmlFor=''>Title</label>
+              <input
+                type='text'
+                name='title'
+                value={this.state.title}
+                onChange={this.handleChange}
+              />
+              <label htmlFor=''>Description</label>
+              <input
+                type='text'
+                name='description'
+                value={this.state.description}
+                onChange={this.handleChange}
+              />
+              <label htmlFor=''>Category</label>
+              <input
+                type='text'
+                name='category'
+                value={this.state.category}
+                onChange={this.handleChange}
+              />
+              <label htmlFor=''>System</label>
+              <input
+                type='text'
+                name='system'
+                value={this.state.system}
+                onChange={this.handleChange}
+              />
+              <label htmlFor=''>Price</label>
+              <input
+                type='number'
+                name='price'
+                value={this.state.price}
+                onChange={this.handleChange}
+              />
+              <Button variant='secondary' onClick={this.handleCloseModal}>
+                Cancel
+              </Button>
+              <Button variant='primary' type='submit'>
+                Submit
+              </Button>
+            </form>
+          </Modal.Body>
         </Modal>
       </div>
     );

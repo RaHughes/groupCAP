@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Modal from 'react-modal';
+import { Modal } from 'react-bootstrap';
 
 class ReviewForm extends Component {
   constructor(props) {
@@ -33,35 +33,35 @@ class ReviewForm extends Component {
       method: 'POST',
       url: 'https://localhost:44394/api/reviews',
       data: {
-        "userId": this.state.userId,
-        "videoGameId": parseInt(this.state.videoGameId),
-        "rating": parseInt(this.state.rating),
-        "reviewChar": this.state.review,
+        userId: this.state.userId,
+        videoGameId: parseInt(this.state.videoGameId),
+        rating: parseInt(this.state.rating),
+        reviewChar: this.state.review,
       },
     });
     console.log('Review Created!');
     this.handleCloseModal(event);
-    this.clearSingleReview(this.state.videoGameId)
-    this.props.helper()
-  };
+    this.clearSingleReview(this.state.videoGameId);
+    this.props.helper();
+  }
 
   clearSingleReview(videoGameId) {
     let filteredArr = this.state.videoGames.filter(vg => vg.id !== videoGameId);
     this.setState({
-        videoGames: filteredArr
-    })
-  };
+      videoGames: filteredArr,
+    });
+  }
 
-  handleOpenModal = (value, id )=>
+  handleOpenModal = (value, id) =>
     this.setState({
       activeModal: value,
       showModal: true,
-      videoGameId: id
+      videoGameId: id,
     });
 
-  handleCloseModal = (event) => {
-    this.setState({ activeModal: '', showModal: false })
-    };
+  handleCloseModal = event => {
+    this.setState({ activeModal: '', showModal: false });
+  };
 
   render() {
     return (
@@ -76,40 +76,18 @@ class ReviewForm extends Component {
                 Review
               </button>
               <Modal
-                isOpen={
+                show={
                   this.state.showModal && this.state.activeModal === vg.title
                 }
-                style={{
-                  overlay: {
-                    position: 'fixed',
-                    height: '30vh',
-                    width: '40%',
-                    top: 0,
-                    left: '50vw',
-                    right: 0,
-                    bottom: 0,
-                    backgroundColor: 'rgba(255, 255, 255, 0.75)',
-                  },
-                  content: {
-                    position: 'absolute',
-                    top: '40px',
-                    left: '40px',
-                    right: '40px',
-                    bottom: '40px',
-                    border: '1px solid #ccc',
-                    background: '#fff',
-                    overflow: 'auto',
-                    WebkitOverflowScrolling: 'touch',
-                    borderRadius: '4px',
-                    outline: 'none',
-                    padding: '20px',
-                  },
-                }}
               >
                 <div>
                   <h4>Title: {vg.title}</h4>
                   <label>Rating: </label>
-                  <select name='rating' value={this.state.rating} onChange={this.handleSelect}>
+                  <select
+                    name='rating'
+                    value={this.state.rating}
+                    onChange={this.handleSelect}
+                  >
                     <option value='1'>1</option>
                     <option value='2'>2</option>
                     <option value='3'>3</option>
@@ -118,7 +96,7 @@ class ReviewForm extends Component {
                   </select>
                   <label>Review: </label>
                   <input
-                    type= 'text'
+                    type='text'
                     name='review'
                     // value={this.state.review}
                     onChange={this.handleChange}
