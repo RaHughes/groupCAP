@@ -12,6 +12,7 @@ class ReviewForm extends Component {
       rating: 0,
       showModal: false,
       activeModal: '',
+      videoGameId: 0,
     };
   }
 
@@ -22,36 +23,44 @@ class ReviewForm extends Component {
   };
 
   handleSelect = event => {
-    event.preventDefault();
     this.setState({
       rating: event.target.value,
     });
   };
 
-  handleSubmit = (event, id) => {
-    event.preventDefault();
-    console.log(id);
-    axios({
+  async handleSubmit(event) {
+    await axios({
       method: 'POST',
       url: 'https://localhost:44394/api/reviews',
       data: {
-        userId: this.state.userId,
-        videoGameId: parseInt(id),
-        rating: parseInt(this.state.rating),
-        reviewChar: this.state.review,
+        "userId": this.state.userId,
+        "videoGameId": parseInt(this.state.videoGameId),
+        "rating": parseInt(this.state.rating),
+        "reviewChar": this.state.review,
       },
     });
     console.log('Review Created!');
-    this.handleCloseModal();
+    this.handleCloseModal(event);
+    this.clearSingleReview(this.state.videoGameId)
   };
 
-  handleOpenModal = value =>
+  clearSingleReview(videoGameId) {
+    let filteredArr = this.state.videoGames.filter(vg => vg.id !== videoGameId);
+    this.setState({
+        videoGames: filteredArr
+    })
+  };
+
+  handleOpenModal = (value, id )=>
     this.setState({
       activeModal: value,
       showModal: true,
+      videoGameId: id
     });
 
-  handleCloseModal = () => this.setState({ activeModal: '', showModal: false });
+  handleCloseModal = (event) => {
+    this.setState({ activeModal: '', showModal: false })
+    };
 
   render() {
     return (
@@ -62,7 +71,7 @@ class ReviewForm extends Component {
           return (
             <>
               <h1>{vg.title}</h1>
-              <button onClick={() => this.handleOpenModal(vg.title)}>
+              <button onClick={() => this.handleOpenModal(vg.title, vg.id)}>
                 Review
               </button>
               <Modal
@@ -96,13 +105,10 @@ class ReviewForm extends Component {
                   },
                 }}
               >
-                <form
-                  onSubmit={() => this.handleSubmit(vg.id)}
-                  key={Math.random()}
-                >
+                <div>
                   <h4>Title: {vg.title}</h4>
                   <label>Rating: </label>
-                  <select name='rating' onChange={this.handleSelect}>
+                  <select name='rating' value={this.state.rating} onChange={this.handleSelect}>
                     <option value='1'>1</option>
                     <option value='2'>2</option>
                     <option value='3'>3</option>
@@ -111,12 +117,13 @@ class ReviewForm extends Component {
                   </select>
                   <label>Review: </label>
                   <input
+                    type= 'text'
                     name='review'
-                    value={this.state.review}
+                    // value={this.state.review}
                     onChange={this.handleChange}
                   ></input>
-                  <button type='submit'>Submit</button>
-                </form>
+                  <button onClick={() => this.handleSubmit()}>Submit</button>
+                </div>
               </Modal>
             </>
           );
