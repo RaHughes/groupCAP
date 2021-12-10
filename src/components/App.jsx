@@ -16,18 +16,27 @@ class App extends Component {
     this.state = {
       videoGames: [],
       user: '',
-      purchasedVideoGames: []
+      purchasedVideoGames: [],
+      reviews: []
     };
   }
 
   componentDidMount() {
     this.getVideoGames();
+    this.getReviews();
     const jwt = localStorage.getItem('token');
     try {
       this.getUser(jwt);
     } catch {
       console.log('Something went wrong');
     }
+  }
+
+  async getReviews() {
+    let response = await axios.get("https://localhost:44394/api/reviews");
+    this.setState({
+      reviews: response.data
+    })
   }
 
   editGame = async game => {
@@ -168,6 +177,7 @@ class App extends Component {
               <VideoGameDetail
                 buyVideoGame={this.addItemToShoppingCart}
                 videoGame={this.state.videoGame}
+                reviews = {this.state.reviews}
               />
             }
           />

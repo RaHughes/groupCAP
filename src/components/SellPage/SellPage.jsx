@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Modal from 'react-bootstrap';
+import Modal from 'react-modal';
 
 class SellPage extends Component {
   constructor(props) {
