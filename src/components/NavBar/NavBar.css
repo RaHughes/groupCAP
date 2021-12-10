@@ -2,10 +2,15 @@
     width: 100%;
     display: inline-block;
     margin: auto;
+    border: 1px solid black;
 }
 
 h4 {
     margin-left: 10px;
+}
+
+.NavHeader {
+  width: 20%;
 }
 
 ul {

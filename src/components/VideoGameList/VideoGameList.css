@@ -1,0 +1,28 @@
+.card{
+    height: 300px;
+    width: 400px;
+    justify-content: space-between;
+    border: 1px solid grey;
+    text-align: center;
+}
+
+.listSelect {
+    height: 30px;
+}
+
+.cardContainer{
+    margin-top: 50px;
+    margin-left: 50px;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+input {
+    width: 400px;
+}
+
+.listForm {
+    margin-left: 20%;
+}

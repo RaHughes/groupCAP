@@ -6,6 +6,7 @@ import './NavBar.css'
 function NavBar( {user, logout} ) {
     return ( 
     <BootNav class="nav">
+        <h1 className='NavHeader'>Game Stop Lite</h1>
         {user && <h4>Welcome {user.firstName}</h4>} 
         <ul class='navList'>
             <li>
@@ -29,7 +30,7 @@ function NavBar( {user, logout} ) {
                     <Link to='/Sell' class="btn btn-secondary"> Sellers Page </Link>
                 </li>
                 <li>
-                    <Link to='/Cart' class="btn btn-secondary"> Cart </Link>
+                    <Link to='/Cart' class="btn btn-secondary"> Cart 🛒</Link>
                 </li>
                 <li>
                     <Link to ='/Review' class="btn btn-secondary"> Review Page</Link>
