@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
+import {
+  Modal,
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Card,
+} from 'react-bootstrap';
 import VideoGameForm from '../VideoGameForm/VideoGameForm';
+import './SellPage.css';
 
 class SellPage extends Component {
   constructor(props) {
@@ -38,7 +47,6 @@ class SellPage extends Component {
       rating: this.state.game.rating,
       userId: this.state.userId,
     };
-    console.log(game);
     this.handleCloseModal();
     this.props.editGame(game);
   };
@@ -50,10 +58,9 @@ class SellPage extends Component {
       category: vg.category,
       system: vg.system,
       description: vg.description,
-      rating: this.state.rating,
+      rating: this.state.game.rating,
       userId: this.state.userId,
     };
-    console.log(game);
     this.handleCloseModal();
     this.props.addGame(game);
   };
@@ -78,11 +85,7 @@ class SellPage extends Component {
     selectedGame.price = vg.price;
     selectedGame.category = vg.category;
     selectedGame.rating = vg.rating;
-    this.setState(
-      { game: selectedGame },
-      console.log(this.state.game),
-      this.handleOpenModal(vg.title)
-    );
+    this.setState({ game: selectedGame }, this.handleOpenModal(vg.title));
   };
 
   render() {
@@ -90,47 +93,11 @@ class SellPage extends Component {
       vg => vg.userId === this.state.userId
     );
     return (
-      <div>
-        {filteredList.map(vg => {
-          return (
-            <div key={vg.id}>
-              <h1>{vg.title}</h1>
-              <h3>{vg.description}</h3>
-              <h4>{vg.category}</h4>
-              <h4>{vg.system}</h4>
-              <h4>{vg.price}</h4>
-              <button onClick={() => this.handleEditClick(vg)}>Edit</button>
-              <Modal
-                show={
-                  this.state.modalIsOpen && this.state.activeModal === vg.title
-                }
-                onHide={this.handleCloseModal}
-              >
-                <Modal.Header closeButton>
-                  <Modal.Title>Edit Details for {vg.title}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  {this.state.activeModal === vg.title && (
-                    <VideoGameForm
-                      game={this.state.game}
-                      submit={this.handleEditSubmit}
-                    />
-                  )}
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button variant='secondary' onClick={this.handleCloseModal}>
-                    Cancel
-                  </Button>
-                </Modal.Footer>
-              </Modal>
-              <button onClick={() => this.handleDelete(vg.id)}>Delete</button>
-            </div>
-          );
-        })}
+      <Container>
         {this.state.userId === undefined ? (
           <h4>You must be logged in to Sell</h4>
         ) : (
-          <button
+          <Button
             onClick={() =>
               this.setState(
                 {
@@ -147,7 +114,7 @@ class SellPage extends Component {
             }
           >
             Add
-          </button>
+          </Button>
         )}
         <Modal
           show={
@@ -167,7 +134,56 @@ class SellPage extends Component {
             )}
           </Modal.Body>
         </Modal>
-      </div>
+        <Row
+          xs={1}
+          sm={2}
+          lg={3}
+          className='justify-content-center videogame-cards'
+        >
+          {filteredList.map(vg => (
+            <Col>
+              <Card className='text-centered videogame-card'>
+                <Card.Body>
+                  <Card.Title>{vg.title}</Card.Title>
+                  <Card.Subtitle>Price: ${vg.price}</Card.Subtitle>
+                  <Card.Subtitle className='text-muted'>
+                    Category: {vg.category}
+                  </Card.Subtitle>
+                  <Card.Subtitle className='text-muted'>
+                    System: {vg.system}
+                  </Card.Subtitle>
+                  <Card.Text>{vg.description}</Card.Text>
+                </Card.Body>
+                <Card.Body>
+                  <Button onClick={() => this.handleEditClick(vg)}>Edit</Button>{' '}
+                  <Modal
+                    show={
+                      this.state.modalIsOpen &&
+                      this.state.activeModal === vg.title
+                    }
+                    onHide={this.handleCloseModal}
+                  >
+                    <Modal.Header closeButton>
+                      <Modal.Title>Edit Details for {vg.title}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      {this.state.activeModal === vg.title && (
+                        <VideoGameForm
+                          game={this.state.game}
+                          submit={this.handleEditSubmit}
+                        />
+                      )}
+                    </Modal.Body>
+                  </Modal>
+                  <Button onClick={() => this.handleDelete(vg.id)}>
+                    Delete
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
     );
   }
 }
