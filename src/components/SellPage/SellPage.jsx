@@ -93,28 +93,33 @@ class SellPage extends Component {
       vg => vg.userId === this.state.userId
     );
     return (
-      <Container>
+      <Container fluid className='justify-content-center'>
         {this.state.userId === undefined ? (
           <h4>You must be logged in to Sell</h4>
         ) : (
-          <Button
-            onClick={() =>
-              this.setState(
-                {
-                  id: '',
-                  title: '',
-                  description: '',
-                  system: '',
-                  price: 0,
-                  category: '',
-                  rating: 0,
-                },
-                this.handleOpenModal('addNewSong')
-              )
-            }
-          >
-            Add
-          </Button>
+          <Row className='justify-content-center sm-4'>
+            <Col className='justify-content-center sm-4 add-button-col'>
+              <Button
+                onClick={() =>
+                  this.setState(
+                    {
+                      id: '',
+                      title: '',
+                      description: '',
+                      system: '',
+                      price: 0,
+                      category: '',
+                      rating: 0,
+                    },
+                    this.handleOpenModal('addNewSong')
+                  )
+                }
+                className='add-button'
+              >
+                List a New Game for Sale
+              </Button>
+            </Col>
+          </Row>
         )}
         <Modal
           show={
@@ -134,24 +139,18 @@ class SellPage extends Component {
             )}
           </Modal.Body>
         </Modal>
-        <Row
-          xs={1}
-          sm={2}
-          lg={3}
-          className='justify-content-center videogame-cards'
-        >
+        <Row className='justify-content-center d-flex flex-wrap align-items-center videogame-cards'>
           {filteredList.map(vg => (
             <Col>
               <Card className='text-centered videogame-card'>
-                <Card.Body>
+                <Card.Body className='overflow'>
                   <Card.Title>{vg.title}</Card.Title>
                   <Card.Subtitle>Price: ${vg.price}</Card.Subtitle>
-                  <Card.Subtitle className='text-muted'>
+                  <Card.Text className='text-muted'>
                     Category: {vg.category}
-                  </Card.Subtitle>
-                  <Card.Subtitle className='text-muted'>
+                    <br />
                     System: {vg.system}
-                  </Card.Subtitle>
+                  </Card.Text>
                   <Card.Text>{vg.description}</Card.Text>
                 </Card.Body>
                 <Card.Body>
