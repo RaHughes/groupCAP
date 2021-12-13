@@ -1,5 +1,5 @@
 .cartObject{
-    justify-content: center;
+    justify-content: right;
     margin: auto;
     width: 50%;
     border: 2px solid black;
@@ -29,4 +29,18 @@
     margin: auto;
     border-collapse: collapse;
     width: 100%;
+}
+
+.cartButton {
+    align-content: right;
+}
+
+.cartTotalAndButton {
+    width: 100%;
+    text-align: right;
+}
+
+.cartTotal {
+    text-align: right;
+    font-variant: small-caps;
 }

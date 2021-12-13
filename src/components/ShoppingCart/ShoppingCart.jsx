@@ -11,6 +11,7 @@ class ShoppingCart extends Component {
       userId: this.props.user.id,
       shoppingCarts: [],
       purchasedGames: [],
+      cartTotal: 0
     };
   }
 
@@ -52,6 +53,12 @@ class ShoppingCart extends Component {
     let filteredCarts = this.state.shoppingCarts.filter(
       sc => sc.userId === this.state.userId
     );
+    let cartTotal = 0;
+    let cartSum = filteredCarts.map(
+      sc => {
+        cartTotal += sc.videoGame.price;
+      }
+    )
     return (
       <div className='cartObject'>
         <table id="shoppingCart" className='cartTable'>
@@ -77,7 +84,12 @@ class ShoppingCart extends Component {
         </table>
         
         {filteredCarts.length > 0 && (
-          <button class='btn btn-secondary'onClick={() => this.clearShoppingCart(filteredCarts)}>Checkout</button>)}
+          <div className="">
+          <button className="cartButton btn btn-primary " onClick={() => this.clearShoppingCart(filteredCarts)}>Checkout</button>
+          <p className="cartTotal">Total: ${cartTotal}</p>
+          </div>
+        )}
+          
         {filteredCarts.length === 0 && (
           <h1>You have no Items in your shopping cart!</h1>
         )}
