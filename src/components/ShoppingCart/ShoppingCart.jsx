@@ -69,11 +69,6 @@ class ShoppingCart extends Component {
           </tr>
           {filteredCarts.map(sc => {
           return (
-            // <div className='cartItem' key={sc.id}>
-            //   <span className='cartItemTitle'>{sc.videoGame.title} {' '}</span>
-            //   <span className='cartItemPrice'>{sc.videoGame.price}</span>
-            //   <br />
-            // </div>
             <tr className='cartItem'>
               <td>{sc.videoGame.title}</td>
               <td>{sc.videoGame.price}</td>
@@ -84,9 +79,9 @@ class ShoppingCart extends Component {
         </table>
         
         {filteredCarts.length > 0 && (
-          <div className="">
+          <div className="checkoutForm">
+          <h4 className="cartTotal">Total: ${cartTotal} </h4>
           <button className="cartButton btn btn-primary " onClick={() => this.clearShoppingCart(filteredCarts)}>Checkout</button>
-          <p className="cartTotal">Total: ${cartTotal}</p>
           </div>
         )}
           

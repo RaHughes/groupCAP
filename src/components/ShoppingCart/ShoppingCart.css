@@ -31,16 +31,18 @@
     width: 100%;
 }
 
-.cartButton {
-    align-content: right;
+.checkoutForm {
+    display: flex;
+    justify-content: space-between;
+    padding: 1%;
 }
 
-.cartTotalAndButton {
-    width: 100%;
-    text-align: right;
+.cartButton {
+    align-content: right;
 }
 
 .cartTotal {
     text-align: right;
     font-variant: small-caps;
+    margin-left: 40%;
 }
