@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import './ShoppingCart.css';
 
 class ShoppingCart extends Component {
   constructor(props) {
@@ -52,29 +53,29 @@ class ShoppingCart extends Component {
       sc => sc.userId === this.state.userId
     );
     return (
-      <div>
-        {filteredCarts.map(sc => {
+      <div className='cartObject'>
+        <table id="shoppingCart" className='cartTable'>
+          <tr className='cartTableHeader'>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+          </tr>
+          {filteredCarts.map(sc => {
           return (
-            <div key={sc.id}>
-              <Card style={{ width: '22rem' }}>
-                {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> This is left for introduction to an image.    */}
-                <Card.Header>Product</Card.Header>
-                <Card.Body>
-                  <Card.Title>{sc.videoGame.title}</Card.Title>
-                  <Card.Text>Description: {sc.videoGame.description}</Card.Text>
-                </Card.Body>
-                <ListGroup className='list-group-flush'>
-                  <ListGroupItem>
-                    Category: {sc.videoGame.category}
-                  </ListGroupItem>
-                  <ListGroupItem>Price: {sc.videoGame.price}</ListGroupItem>
-                </ListGroup>
-              </Card>
-              <br />
-              <br />
-            </div>
+            // <div className='cartItem' key={sc.id}>
+            //   <span className='cartItemTitle'>{sc.videoGame.title} {' '}</span>
+            //   <span className='cartItemPrice'>{sc.videoGame.price}</span>
+            //   <br />
+            // </div>
+            <tr className='cartItem'>
+              <td>{sc.videoGame.title}</td>
+              <td>{sc.videoGame.price}</td>
+              <td>{sc.quantity}</td>
+            </tr>
           );
         })}
+        </table>
+        
         {filteredCarts.length > 0 && (
           <button
             class='btn btn-secondary'
