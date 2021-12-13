@@ -8,7 +8,7 @@ const VideoGameDetail = (props) => {
             <h3>Description: {props.videoGame.description}</h3>
             <h4>System: {props.videoGame.system}</h4>
             <h4>Price: ${props.videoGame.price}</h4>
-            {props.user !== '' ? <button class='btn btn-secondary' onClick={() => props.buyVideoGame()}>Buy Product</button> : <h4>You must be logged in to purchase this game</h4>}
+            {props.user !== '' ? <button className='btn btn-secondary' onClick={() => props.buyVideoGame()}>Buy Product</button> : <h4>You must be logged in to purchase this game</h4>}
             {props.reviews.map(rv => {
                 if(props.videoGame.id === rv.videoGameId){
                   return(

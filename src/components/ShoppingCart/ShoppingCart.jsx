@@ -74,7 +74,7 @@ class ShoppingCart extends Component {
           );
         })}
         {filteredCarts.length > 0 && (
-          <button class="btn btn-secondary" onClick={() => this.clearShoppingCart(filteredCarts)}>
+          <button className="btn btn-secondary" onClick={() => this.clearShoppingCart(filteredCarts)}>
             Checkout
           </button>
         )}
