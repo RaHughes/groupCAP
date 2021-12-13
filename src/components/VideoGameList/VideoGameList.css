@@ -1,9 +1,10 @@
 .card{
     height: 300px;
     width: 400px;
-    justify-content: space-between;
     border: 1px solid grey;
     text-align: center;
+    margin-left: 50px;
+    margin-top: 50px;
 }
 
 .listSelect {
@@ -11,12 +12,9 @@
 }
 
 .cardContainer{
-    margin-top: 50px;
     margin-left: 50px;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    width: 85%;
+    margin-top: 50px;
 }
 
 input {

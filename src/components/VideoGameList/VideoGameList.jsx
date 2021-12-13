@@ -57,8 +57,8 @@ class VideoGameList extends Component {
             </select>
             <button className='btn btn-secondary' type="submit">🔎</button>
             </form>
-            <Container fluid className='justify-content-center'>
-            <Row className='justify-content-center d-flex flex-wrap align-items-center videogame-cards'>
+            <Container fluid className='justify-content-center cardContainer'>
+            <Row className='justify-content-center d-flex flex-wrap align-items-center cardContainer'>
             {this.state.flag === false ?
             this.props.videoGames.map(vg => (
                 <Col>
