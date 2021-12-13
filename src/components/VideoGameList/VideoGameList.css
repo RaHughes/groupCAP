@@ -23,4 +23,7 @@ input {
 
 .listForm {
     margin-left: 20%;
+    position: absolute;
+    top: 10px;
+    left: 300px;
 }
