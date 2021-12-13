@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import './UserRegister.css';
 
 class UserRegister extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class UserRegister extends Component {
     return (
       <Container>
         <Form onSubmit={this.handleSubmit} className='register-form'>
-          <Row>
+          <Row className='mb-3 mt-3'>
             <Form.Group as={Col} controlId='formGridFirstName'>
               <Form.Label>First Name: </Form.Label>
               <Form.Control
@@ -59,7 +58,7 @@ class UserRegister extends Component {
               />
             </Form.Group>
           </Row>
-          <Row>
+          <Row className='mb-3'>
             <Form.Group as={Col} controlId='formGridUsername'>
               <Form.Label>Username: </Form.Label>
               <Form.Control
@@ -80,7 +79,7 @@ class UserRegister extends Component {
               />
             </Form.Group>
           </Row>
-          <Row>
+          <Row className='mb-3'>
             <Form.Group as={Col} controlId='formGridEmail'>
               <Form.Label>Email: </Form.Label>
               <Form.Control

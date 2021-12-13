@@ -47,7 +47,9 @@ class LogInForm extends Component {
             value={this.state.password}
             onChange={this.handleChange}
           ></Form.Control>
-          <Button type='submit'>Login</Button>
+          <Button type='submit' className='mt-3'>
+            Login
+          </Button>
         </Form>
       </Container>
     );
