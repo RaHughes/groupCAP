@@ -11,7 +11,7 @@ class ShoppingCart extends Component {
       userId: this.props.user.id,
       shoppingCarts: [],
       purchasedGames: [],
-      cartTotal: 0
+      cartTotal: 0,
     };
   }
 
@@ -54,38 +54,52 @@ class ShoppingCart extends Component {
       sc => sc.userId === this.state.userId
     );
     let cartTotal = 0;
-    let cartSum = filteredCarts.map(
-      sc => {
-        cartTotal += sc.videoGame.price;
+    let cartSum = filteredCarts.map(sc => {
+      cartTotal += sc.videoGame.price;
+    });
+    let moreCarts = [];
+    filteredCarts.forEach(cart => {
+      let found = moreCarts.find(
+        element => element.productId === cart.productId
+      );
+      if (found) {
+        moreCarts[moreCarts.indexOf(found)].quantity++;
+      } else {
+        moreCarts.push(cart);
       }
-    )
+    });
     return (
       <div className='cartObject'>
-        <table id="shoppingCart" className='cartTable'>
+        <table id='shoppingCart' className='cartTable'>
           <tr className='cartTableHeader'>
             <th>Product</th>
             <th>Price</th>
             <th>Quantity</th>
           </tr>
-          {filteredCarts.map(sc => {
-          return (
-            <tr className='cartItem'>
-              <td>{sc.videoGame.title}</td>
-              <td>{sc.videoGame.price}</td>
-              <td>{sc.quantity}</td>
-            </tr>
-          );
-        })}
+          {moreCarts.map(sc => {
+            return (
+              <tr className='cartItem'>
+                <td>{sc.videoGame.title}</td>
+                <td>{sc.videoGame.price}</td>
+                <td>{sc.quantity}</td>
+              </tr>
+            );
+          })}
         </table>
-        
-        {filteredCarts.length > 0 && (
-          <div className="checkoutForm">
-          <h4 className="cartTotal">Total: ${cartTotal} </h4>
-          <button className="cartButton btn btn-primary " onClick={() => this.clearShoppingCart(filteredCarts)}>Checkout</button>
+
+        {moreCarts.length > 0 && (
+          <div className='checkoutForm'>
+            <h4 className='cartTotal'>Total: ${cartTotal} </h4>
+            <button
+              className='cartButton btn btn-primary '
+              onClick={() => this.clearShoppingCart(filteredCarts)}
+            >
+              Checkout
+            </button>
           </div>
         )}
-          
-        {filteredCarts.length === 0 && (
+
+        {moreCarts.length === 0 && (
           <h1>You have no Items in your shopping cart!</h1>
         )}
       </div>

@@ -121,7 +121,9 @@ class ReviewForm extends Component {
                       // value={this.state.review}
                       onChange={this.handleChange}
                     ></Form.Control>
-                    <Button type='submit'>Submit</Button>
+                    <Button type='submit' className='mt-3'>
+                      Submit
+                    </Button>
                   </Form>
                 </Modal.Body>
               </Modal>
