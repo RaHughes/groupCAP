@@ -45,10 +45,6 @@ class App extends Component {
     this.getReviews();
   };
 
-  // reviewHelper = () => {
-  //   this.getReviews()
-  // }
-
   editGame = async game => {
     await axios({
       method: 'PUT',

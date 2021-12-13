@@ -1,10 +1,12 @@
-import React from 'react';
+import { useState } from 'react';
+import LogInForm from '../LogInForm/LogInForm';
 import { Link } from 'react-router-dom';
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
+import { Navbar, Nav, NavDropdown, Modal, Container } from 'react-bootstrap';
 import './NavBar.css';
 import logo from '../../img/logo.svg';
 
 function NavBar({ user, logout }) {
+  const [showModal, setShowModal] = useState(false);
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
       <Container>
@@ -40,6 +42,7 @@ function NavBar({ user, logout }) {
             {user && (
               <>
                 <Navbar.Text>Hi, {user.firstName} </Navbar.Text>
+
                 <NavDropdown title='Account' id='navbarScrollingDropdown'>
                   <NavDropdown.Item as={Link} to='/Review'>
                     Review a Purchase
@@ -53,9 +56,7 @@ function NavBar({ user, logout }) {
             )}
             {!user && (
               <>
-                <Nav.Link as={Link} to='/Login'>
-                  Login
-                </Nav.Link>
+                <Nav.Link onClick={() => setShowModal(true)}>Login</Nav.Link>
                 <Nav.Link as={Link} to='/Register'>
                   Register
                 </Nav.Link>
@@ -119,6 +120,14 @@ function NavBar({ user, logout }) {
               </React.Fragment>
             )}
           </ul> */}
+          <Modal show={showModal} onHide={() => setShowModal(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Please Login</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <LogInForm />
+            </Modal.Body>
+          </Modal>
         </Navbar.Collapse>
       </Container>
     </Navbar>
