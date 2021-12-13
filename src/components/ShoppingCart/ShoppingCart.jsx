@@ -77,13 +77,7 @@ class ShoppingCart extends Component {
         </table>
         
         {filteredCarts.length > 0 && (
-          <button
-            class='btn btn-secondary'
-            onClick={() => this.clearShoppingCart(filteredCarts)}
-          >
-            Checkout
-          </button>
-        )}
+          <button class='btn btn-secondary'onClick={() => this.clearShoppingCart(filteredCarts)}>Checkout</button>)}
         {filteredCarts.length === 0 && (
           <h1>You have no Items in your shopping cart!</h1>
         )}

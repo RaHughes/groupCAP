@@ -63,63 +63,6 @@ function NavBar({ user, logout }) {
               </>
             )}
           </Nav>
-          {/* 
-          <ul class='navList'>
-            <li>
-              <Link class='btn btn-secondary' to='/'>
-                {' '}
-                Home{' '}
-              </Link>
-            </li>
-            {!user && (
-              <React.Fragment>
-                <li>
-                  <Link to='/Login' class='btn btn-secondary'>
-                    {' '}
-                    Login{' '}
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/Register' class='btn btn-secondary'>
-                    {' '}
-                    Register{' '}
-                  </Link>
-                </li>
-              </React.Fragment>
-            )}
-            {user && (
-              <React.Fragment>
-                <li>
-                  <Link
-                    to='/'
-                    onClick={() => logout()}
-                    class='btn btn-secondary'
-                  >
-                    {' '}
-                    Logout{' '}
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/Sell' class='btn btn-secondary'>
-                    {' '}
-                    Sellers Page{' '}
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/Cart' class='btn btn-secondary'>
-                    {' '}
-                    Cart 🛒
-                  </Link>
-                </li>
-                <li>
-                  <Link to='/Review' class='btn btn-secondary'>
-                    {' '}
-                    Review Page
-                  </Link>
-                </li>
-              </React.Fragment>
-            )}
-          </ul> */}
           <Modal show={showModal} onHide={() => setShowModal(false)}>
             <Modal.Header closeButton>
               <Modal.Title>Please Login</Modal.Title>

@@ -1,4 +1,13 @@
 import React, { Component } from 'react';
+import {
+    Modal,
+    Form,
+    Button,
+    Container,
+    Row,
+    Col,
+    Card,
+  } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './VideoGameList.css'
 
@@ -38,7 +47,7 @@ class VideoGameList extends Component {
  
     render() {
         return ( <div>
-            <form class='form-group listForm'onSubmit={this.handleSubmit}>
+            <form className='form-group listForm'onSubmit={this.handleSubmit}>
             <label for='searchInput'>Search: </label>
             <input className='input' id='searchInput' name='search' onChange={this.handleChange}></input>
             <select className='listSelect' name="filterBy" onChange={this.handleSelect}>
@@ -46,30 +55,40 @@ class VideoGameList extends Component {
                 <option value="category">Category</option>
                 <option value="system">System</option>
             </select>
-            <button class='btn btn-secondary' type="submit">🔎</button>
+            <button className='btn btn-secondary' type="submit">🔎</button>
             </form>
-            <div className='cardContainer'>
+            <Container fluid className='justify-content-center cardContainer'>
+            <Row className='justify-content-center d-flex flex-wrap align-items-center cardContainer'>
             {this.state.flag === false ?
-            this.props.videoGames.map(vg => {
-                return <div className='card' key={Math.random()}>
-                    <h1>{vg.title}</h1>
-                    <h3>Description: {vg.description}</h3>
-                    <h4>System: {vg.system}</h4>
-                    <h4>Price: {vg.price}</h4>
-                    <h4>Category: {vg.category}</h4>
-                    <Link to='/Detail' class='btn btn-secondary' onClick={ () => this.props.getVg(vg)} >View Product</Link>
-                </div>}) 
+            this.props.videoGames.map(vg => (
+                <Col>
+                 <Card className='text-centered' key={Math.random()}>
+                    <Card.Body className='overflow'>
+                    <Card.Title>{vg.title}</Card.Title>
+                    <Card.Text>Description: {vg.description}</Card.Text>
+                    <Card.Text>System: {vg.system}</Card.Text>
+                    <Card.Subtitle>Price: ${vg.price}</Card.Subtitle>
+                    <Card.Text>Category: {vg.category}</Card.Text>
+                    </Card.Body>
+                    <Link to='/Detail' className='btn btn-primary' onClick={ () => this.props.getVg(vg)} >View Product</Link>
+                </Card>
+                </Col>)) 
                 : 
-            this.state.videoGames.map(vg => {
-                return <div className='card' key={Math.random()}>
-                    <h1>{vg.title}</h1>
-                    <h3>Description: {vg.description}</h3>
-                    <h4>System: {vg.system}</h4>
-                    <h4>Price: {vg.price}</h4>
-                    <h4>Category: {vg.category}</h4>
-                    <Link to='/Detail' class='btn btn-secondary' onClick={ () => this.props.getVg(vg)} >View Product</Link>
-                </div>})} 
-                </div>
+            this.state.videoGames.map(vg => (
+                <Col>
+                <Card className='card' key={Math.random()}>
+                   <Card.Body className='overflow'>
+                   <Card.Title>{vg.title}</Card.Title>
+                   <Card.Text>Description: {vg.description}</Card.Text>
+                   <Card.Text>System: {vg.system}</Card.Text>
+                   <Card.Subtitle>Price: ${vg.price}</Card.Subtitle>
+                   <Card.Text>Category: {vg.category}</Card.Text>
+                   </Card.Body>
+                   <Link to='/Detail' className='btn btn-primary' onClick={ () => this.props.getVg(vg)} >View Product</Link>
+               </Card>
+               </Col>))} 
+                </Row>
+                </Container>
         </div>);
     }
 }
