@@ -76,13 +76,22 @@ class ReviewForm extends Component {
   };
 
   render() {
+    const games = this.state.videoGames;
+    let uniqueGames = [];
+    games.forEach(game => {
+      let found = uniqueGames.find(e => e.id === game.id);
+      if (!found) {
+        uniqueGames.push(game);
+      }
+    });
+
     return (
       <Container>
         <h3>Please Review Your Purchases</h3>
 
         <br />
         <ListGroup>
-          {this.state.videoGames.map(vg => (
+          {uniqueGames.map(vg => (
             <>
               <ListGroup.Item
                 action
