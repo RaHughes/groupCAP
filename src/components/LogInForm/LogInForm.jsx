@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Form, Button, Container } from 'react-bootstrap';
 
 class LogInForm extends Component {
   constructor(props) {
@@ -32,21 +33,23 @@ class LogInForm extends Component {
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
-        <label> Username: </label>
-        <input
-          name='username'
-          value={this.state.username}
-          onChange={this.handleChange}
-        ></input>
-        <label> Password: </label>
-        <input
-          name='password'
-          value={this.state.password}
-          onChange={this.handleChange}
-        ></input>
-        <button type='submit'>Login</button>
-      </form>
+      <Container>
+        <Form onSubmit={this.onSubmit}>
+          <Form.Label> Username: </Form.Label>
+          <Form.Control
+            name='username'
+            value={this.state.username}
+            onChange={this.handleChange}
+          ></Form.Control>
+          <Form.Label> Password: </Form.Label>
+          <Form.Control
+            name='password'
+            value={this.state.password}
+            onChange={this.handleChange}
+          ></Form.Control>
+          <Button type='submit'>Login</Button>
+        </Form>
+      </Container>
     );
   }
 }

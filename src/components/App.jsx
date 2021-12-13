@@ -17,7 +17,7 @@ class App extends Component {
       videoGames: [],
       user: '',
       purchasedVideoGames: [],
-      reviews: []
+      reviews: [],
     };
   }
 
@@ -33,15 +33,17 @@ class App extends Component {
   }
 
   async getReviews() {
-    let response = await axios.get("https://localhost:44394/api/reviews");
+    let response = await axios.get('https://localhost:44394/api/reviews');
     this.setState({
-      reviews: response.data
-    })
+      reviews: response.data,
+    });
   }
 
-  reviewHelper = () => {
-    this.getReviews()
-  }
+  addReview = async data => {
+    await axios.post('https://localhost:44394/api/reviews', data);
+    console.log('Review created!');
+    this.getReviews();
+  };
 
   editGame = async game => {
     await axios({
@@ -64,17 +66,17 @@ class App extends Component {
   addGame = async game => {
     await axios({
       method: 'POST',
-      url: "https://localhost:44394/api/videogames",
-      data : {
+      url: 'https://localhost:44394/api/videogames',
+      data: {
         title: game.title,
         price: parseInt(game.price),
         category: game.category,
         system: game.system,
         description: game.description,
         rating: parseInt(game.rating),
-        userId: game.userId
-      }
-    })
+        userId: game.userId,
+      },
+    });
     this.getVideoGames();
   };
 
@@ -144,20 +146,33 @@ class App extends Component {
     console.log(user);
   };
 
-  getPurchasedGames = (arr) => {
+  getPurchasedGames = arr => {
     console.log(arr);
     this.setState({
-      purchasedVideoGames: arr
-    })
-    
-  }
+      purchasedVideoGames: arr,
+    });
+  };
 
   render() {
     return (
       <div className='App'>
-        <NavBar bg="light" expand="lg" user={this.state.user} logout={this.logout} />
+        <NavBar
+          bg='light'
+          expand='lg'
+          user={this.state.user}
+          logout={this.logout}
+        />
         <Routes>
-          <Route path='/' exact element={<VideoGameList videoGames={this.state.videoGames} getVg={this.getVideoGameDetail} />} />
+          <Route
+            path='/'
+            exact
+            element={
+              <VideoGameList
+                videoGames={this.state.videoGames}
+                getVg={this.getVideoGameDetail}
+              />
+            }
+          />
           <Route path='/Login' element={<LogInForm />} />
           <Route
             path='/Register'
@@ -182,17 +197,28 @@ class App extends Component {
                 user={this.state.user}
                 buyVideoGame={this.addItemToShoppingCart}
                 videoGame={this.state.videoGame}
-                reviews = {this.state.reviews}
+                reviews={this.state.reviews}
               />
             }
           />
           <Route
             path='/Cart'
-            element={<ShoppingCart user={this.state.user} purchaseGames={this.getPurchasedGames} />}
+            element={
+              <ShoppingCart
+                user={this.state.user}
+                purchaseGames={this.getPurchasedGames}
+              />
+            }
           />
-          <Route 
+          <Route
             path='/Review'
-            element={<ReviewForm userId={this.state.user.id} videoGamesPurchased={this.state.purchasedVideoGames} helper={this.reviewHelper}/>}
+            element={
+              <ReviewForm
+                userId={this.state.user.id}
+                videoGamesPurchased={this.state.purchasedVideoGames}
+                addReview={this.addReview}
+              />
+            }
           />
         </Routes>
       </div>

@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Modal } from 'react-bootstrap';
+import {
+  Modal,
+  Button,
+  Form,
+  ListGroup,
+  Container,
+  Row,
+  Col,
+} from 'react-bootstrap';
 
 class ReviewForm extends Component {
   constructor(props) {
@@ -9,7 +17,7 @@ class ReviewForm extends Component {
       userId: this.props.userId,
       videoGames: this.props.videoGamesPurchased,
       review: '',
-      rating: 0,
+      rating: 1,
       showModal: false,
       activeModal: '',
       videoGameId: 0,
@@ -18,7 +26,7 @@ class ReviewForm extends Component {
 
   handleChange = event => {
     this.setState({
-      [event.target.name]: event.target.value,
+      review: event.target.value,
     });
   };
 
@@ -28,36 +36,40 @@ class ReviewForm extends Component {
     });
   };
 
-  async handleSubmit(event) {
-    await axios({
-      method: 'POST',
-      url: 'https://localhost:44394/api/reviews',
-      data: {
-        userId: this.state.userId,
-        videoGameId: parseInt(this.state.videoGameId),
-        rating: parseInt(this.state.rating),
-        reviewChar: this.state.review,
-      },
-    });
-    console.log('Review Created!');
+  handleSubmit = event => {
+    event.preventDefault();
+    const data = {
+      userId: this.state.userId,
+      videoGameId: parseInt(this.state.videoGameId),
+      rating: parseInt(this.state.rating),
+      reviewChar: this.state.review,
+    };
+    console.log(data);
+    this.props.addReview(data);
     this.handleCloseModal(event);
     this.clearSingleReview(this.state.videoGameId);
-    this.props.helper();
-  }
+  };
 
   clearSingleReview(videoGameId) {
     let filteredArr = this.state.videoGames.filter(vg => vg.id !== videoGameId);
-    this.setState({
-      videoGames: filteredArr,
-    });
+    this.setState(
+      {
+        videoGames: filteredArr,
+      },
+      console.log('review cleared')
+    );
   }
 
-  handleOpenModal = (value, id) =>
-    this.setState({
-      activeModal: value,
-      showModal: true,
-      videoGameId: id,
-    });
+  handleOpenModal = (value, id) => {
+    this.setState(
+      {
+        activeModal: value,
+        showModal: true,
+        videoGameId: id,
+      },
+      console.log(this.state)
+    );
+  };
 
   handleCloseModal = event => {
     this.setState({ activeModal: '', showModal: false });
@@ -65,49 +77,58 @@ class ReviewForm extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Please Leave a Review</h3>
+      <Container>
+        <h3>Please Review Your Purchases</h3>
+
         <br />
-        {this.state.videoGames.map(vg => {
-          return (
+        <ListGroup>
+          {this.state.videoGames.map(vg => (
             <>
-              <h1>{vg.title}</h1>
-              <button onClick={() => this.handleOpenModal(vg.title, vg.id)}>
-                Review
-              </button>
+              <ListGroup.Item
+                action
+                onClick={() => this.handleOpenModal(vg.title, vg.id)}
+                key={vg.id}
+              >
+                <h2>{vg.title}</h2> - <h4>{vg.system}</h4>
+              </ListGroup.Item>
               <Modal
                 show={
                   this.state.showModal && this.state.activeModal === vg.title
                 }
+                onHide={this.handleCloseModal}
               >
-                <div>
-                  <h4>Title: {vg.title}</h4>
-                  <label>Rating: </label>
-                  <select
-                    name='rating'
-                    value={this.state.rating}
-                    onChange={this.handleSelect}
-                  >
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
-                  </select>
-                  <label>Review: </label>
-                  <input
-                    type='text'
-                    name='review'
-                    // value={this.state.review}
-                    onChange={this.handleChange}
-                  ></input>
-                  <button onClick={() => this.handleSubmit()}>Submit</button>
-                </div>
+                <Modal.Header closeButton>
+                  <Modal.Title>Review: {vg.title}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form onSubmit={this.handleSubmit}>
+                    <Form.Label>Rating</Form.Label>
+                    <Form.Select
+                      name='rating'
+                      value={this.state.rating}
+                      onChange={this.handleSelect}
+                    >
+                      <option value='1'>1</option>
+                      <option value='2'>2</option>
+                      <option value='3'>3</option>
+                      <option value='4'>4</option>
+                      <option value='5'>5</option>
+                    </Form.Select>
+                    <Form.Label>Review:</Form.Label>
+                    <Form.Control
+                      type='text'
+                      name='review'
+                      // value={this.state.review}
+                      onChange={this.handleChange}
+                    ></Form.Control>
+                    <Button type='submit'>Submit</Button>
+                  </Form>
+                </Modal.Body>
               </Modal>
             </>
-          );
-        })}
-      </div>
+          ))}
+        </ListGroup>
+      </Container>
     );
   }
 }

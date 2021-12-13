@@ -33,6 +33,7 @@ class ShoppingCart extends Component {
       this.setState({
         purchasedGames: [...this.state.purchasedGames, usersCart[i].videoGame],
       });
+      console.log(usersCart[i]);
       await axios({
         method: 'DELETE',
         url: `https://localhost:44394/api/shoppingcart/${usersCart[i].id}`,
@@ -43,6 +44,7 @@ class ShoppingCart extends Component {
       );
     }
     this.props.purchaseGames(this.state.purchasedGames);
+    this.getShoppingCarts();
   }
 
   render() {
@@ -54,30 +56,27 @@ class ShoppingCart extends Component {
         {filteredCarts.map(sc => {
           return (
             <div key={sc.id}>
-                <Card style={{ width: '22rem' }}>
-                  {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> This is left for introduction to an image.    */}
-                  <Card.Header>Product</Card.Header>
-                  <Card.Body>
-                    <Card.Title>{sc.videoGame.title}</Card.Title>
-                    <Card.Text>
-                      Description: {sc.videoGame.description}
-                    </Card.Text>
-                  </Card.Body>
-                  <ListGroup className="list-group-flush">
-                    <ListGroupItem>Category: {sc.videoGame.category}</ListGroupItem>
-                    <ListGroupItem>Price: {sc.videoGame.price}</ListGroupItem>
-                  </ListGroup>
-                </Card>
-                <br/>
-                <br/>
+              <Card style={{ width: '22rem' }}>
+                {/* <Card.Img variant="top" src="holder.js/100px180?text=Image cap" /> This is left for introduction to an image.    */}
+                <Card.Header>Product</Card.Header>
+                <Card.Body>
+                  <Card.Title>{sc.videoGame.title}</Card.Title>
+                  <Card.Text>Description: {sc.videoGame.description}</Card.Text>
+                </Card.Body>
+                <ListGroup className='list-group-flush'>
+                  <ListGroupItem>
+                    Category: {sc.videoGame.category}
+                  </ListGroupItem>
+                  <ListGroupItem>Price: {sc.videoGame.price}</ListGroupItem>
+                </ListGroup>
+              </Card>
+              <br />
+              <br />
             </div>
           );
         })}
         {filteredCarts.length > 0 && (
-          <button className="btn btn-secondary" onClick={() => this.clearShoppingCart(filteredCarts)}>
-            Checkout
-          </button>
-        )}
+          <button class='btn btn-secondary'onClick={() => this.clearShoppingCart(filteredCarts)}>Checkout</button>)}
         {filteredCarts.length === 0 && (
           <h1>You have no Items in your shopping cart!</h1>
         )}
