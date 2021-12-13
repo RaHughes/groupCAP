@@ -51,19 +51,14 @@ class VideoGameList extends Component {
       <div>
         <Container>
           <Row>
-            {/* className='form-group listForm' */}
-            <Form onSubmit={this.handleSubmit}>
-              <Form.Group as={Col} className='sm-3 w-10'>
-                <Form.Label for='searchInput'>Search: </Form.Label>
-                <Form.Control
-                  className='input'
+            <Form onSubmit={this.handleSubmit} className='listForm'>
+                <input
+                  className='inputSearch'
                   id='searchInput'
                   name='search'
                   onChange={this.handleChange}
                 />
-              </Form.Group>
-              <Form.Group as={Col} className='sm-2 w-10'>
-                <Form.Select
+                <select
                   className='listSelect'
                   name='filterBy'
                   onChange={this.handleSelect}
@@ -71,11 +66,8 @@ class VideoGameList extends Component {
                   <option value='title'>Title</option>
                   <option value='category'>Category</option>
                   <option value='system'>System</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group as={Col} className='sm-2'>
-                <Button className='btn btn-secondary' type='submit'></Button>
-              </Form.Group>
+                </select>
+                <Button className='btn btn-primary formBtn' type='submit'>🔎</Button>
             </Form>
           </Row>
         </Container>

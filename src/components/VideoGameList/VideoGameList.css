@@ -9,6 +9,7 @@
 
 .listSelect {
     height: 30px;
+    width: 90px;
 }
 
 .cardContainer{
@@ -17,12 +18,19 @@
     margin-top: 50px;
 }
 
-input {
+.inputSearch {
     width: 400px;
+    height: 30px;
+}
+
+.formBtn {
+    height: 30px;
+    width: 50px;
 }
 
 .listForm {
     margin-left: 20%;
+    display: inline-flex;
     position: absolute;
     top: 10px;
     left: 300px;
