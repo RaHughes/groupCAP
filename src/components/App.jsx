@@ -135,12 +135,12 @@ class App extends Component {
       method: 'POST',
       url: 'https://localhost:44394/api/authentication',
       data: {
-        firstname: user.firstname,
-        lastname: user.lastname,
-        username: user.username,
-        password: user.password,
-        email: user.email,
-        phonenumber: user.phonenumber,
+        "firstname": user.firstname,
+        "lastname": user.lastname,
+        "username": user.username,
+        "password": user.password,
+        "email": user.email,
+        "phonenumber": user.phonenumber,
       },
     });
     console.log(user);

@@ -30,8 +30,9 @@ class UserRegister extends Component {
       email: this.state.email,
       phonenumber: this.state.phonenumber,
     };
+    console.log(newUser);
     this.props.registerUser(newUser);
-    window.location = '/Login';
+    // window.location = '/Login';
   };
 
   render() {
@@ -71,7 +72,6 @@ class UserRegister extends Component {
             <Form.Group as={Col} controlId='formGridPassword'>
               <Form.Label>Password: </Form.Label>
               <Form.Control
-                type='password'
                 name='password'
                 placeholder='Password'
                 value={this.state.password}
@@ -83,7 +83,6 @@ class UserRegister extends Component {
             <Form.Group as={Col} controlId='formGridEmail'>
               <Form.Label>Email: </Form.Label>
               <Form.Control
-                type='email'
                 name='email'
                 placeholder='email@address.com'
                 value={this.state.email}
@@ -93,7 +92,6 @@ class UserRegister extends Component {
             <Form.Group as={Col} controlId='formGridTel'>
               <Form.Label>Phone Number: </Form.Label>
               <Form.Control
-                type='tel'
                 name='phonenumber'
                 placeholder='111-222-3333'
                 value={this.state.phonenumber}
